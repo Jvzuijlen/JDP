@@ -4,25 +4,27 @@
       <div ngbDropdown class="d-inline-block">
         <button mat-button ngbDropdownToggle>Inloggen</button>
         <div ngbDropdownMenu aria-labelledby="dropdownForm1">
-          <form class="px-4 py-3">
+          <form
+            class="px-4 py-3"
+            [formGroup]="loginForm"
+            (ngSubmit)="onLoginSubmit()"
+          >
             <div class="form-group">
-              <label for="exampleDropdownFormEmail1"
-                >Gebruikersnaam</label
-              >
+              <label for="username">Gebruikersnaam</label>
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleDropdownFormEmail1"
+                id="username"
+                formControlName="username"
               />
             </div>
             <div class="form-group">
-              <label for="exampleDropdownFormPassword1"
-                >Wachtwoord</label
-              >
+              <label for="password">Wachtwoord</label>
               <input
                 type="password"
                 class="form-control"
-                id="exampleDropdownFormPassword1"
+                id="password"
+                formControlName="password"
               />
             </div>
             <div class="form-check">
@@ -30,17 +32,24 @@
                 type="checkbox"
                 class="form-check-input"
                 id="dropdownCheck"
+                formControlName="rememberme"
               />
               <label class="form-check-label" for="dropdownCheck">
                 Ingelogd blijven
               </label>
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="
+                loginForm.invalid || loadAble.loading || loadAble.success
+              "
+            >
               Inloggen
             </button>
           </form>
           <div class="dropdown-divider"></div>
-          <button ngbDropdownItem>
+          <button ngbDropdownItem [routerLink]="['/register']">
             Nog geen account? Registreer hier
           </button>
           <button ngbDropdownItem>Wachtwoord vergeten?</button>

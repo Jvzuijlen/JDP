@@ -1,0 +1,56 @@
+<form
+  class="px-4 py-3"
+  [formGroup]="registerForm"
+  (ngSubmit)="onRegisterSubmit()"
+>
+  <ng-template #registerSuccess>
+    <app-register-succes></app-register-succes>
+  </ng-template>
+
+  <div *ngIf="!loadAble.success; else registerSuccess">
+    <div *ngIf="loadAble.error" class="alert alert-danger" role="alert">
+      <p class="alert-heading">
+        <strong>Oh snap! </strong>Something went wrong!
+      </p>
+      <hr />
+      <p class="mb-0">
+        {{ loadAble.error }}
+      </p>
+    </div>
+
+    <h5>Registreer een nieuw account:</h5>
+
+    <div class="form-group">
+      <label class="control-label">Gebruikersnaam</label>
+      <input type="text" class="form-control" formControlName="username" />
+      <bfv-messages></bfv-messages>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">Wachtwoord</label>
+      <input type="password" class="form-control" formControlName="password" />
+      <bfv-messages></bfv-messages>
+    </div>
+
+    <div class="form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        formControlName="acceptagreement"
+      />
+      <label class="form-check-label">Ik accepteer de voorwaarden</label>
+    </div>
+
+    <div class="register-button-div">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="
+          registerForm.invalid || loadAble.loading || loadAble.success
+        "
+      >
+        Registreren
+      </button>
+    </div>
+  </div>
+</form>

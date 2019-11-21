@@ -1,0 +1,11 @@
+/* .form-control.ng-touched.ng-invalid{
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.750);
+}
+
+.form-control.ng-touched.ng-valid{
+    box-shadow: 0 0 0 0.2rem rgba(2, 255, 2, 0.384);
+} */
+
+.register-button-div {
+    margin-top: 5px;
+}

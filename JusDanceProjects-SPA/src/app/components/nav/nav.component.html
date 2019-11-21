@@ -1,0 +1,77 @@
+<div class="outside">
+  <mat-toolbar class="fixed-header" color="primary">
+    <mat-toolbar-row>
+      <span>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </span>
+
+      <span id="title" fxFlex fxShow="true" fxHide.lt-sm="false">
+        <span [routerLink]="['/home']" routerLinkActive="active"
+          >JusDanceProjects</span
+        >
+      </span>
+
+      <span>
+        <app-nav-login></app-nav-login>
+      </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container #sidenav style="height:100%;width:100%;">
+    <mat-sidenav
+      mode="side"
+      opened="false"
+      #sidenav
+      style="box-shadow: 0 5px 5px #999;z-index: 1;"
+    >
+      Website links
+    </mat-sidenav>
+
+    <mat-sidenav-content class="inner-sidenav-content">
+      <app-header></app-header>
+      <div class="main-body">
+        <div class="main-content col">
+          <div class="test">
+              <router-outlet></router-outlet>
+          </div>
+        </div>
+        <div class="overlay-top"></div>
+        <div class="overlay-bottom"></div>
+      </div>
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<!-- 
+<mat-toolbar class="fixed-tool-bar" color="primary">
+  <mat-toolbar-row>
+    <span>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </span>
+
+    <span id="title" fxFlex fxShow="true" fxHide.lt-sm="true">
+      <span [routerLink]="['/home']" routerLinkActive="active"
+        >JusDanceProjects</span
+      >
+    </span>
+
+    <span>
+      <app-nav-login></app-nav-login>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav mode="side" #sidenav position="start">
+    Website links
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
