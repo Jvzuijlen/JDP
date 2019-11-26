@@ -62,7 +62,7 @@ export class UserActions {
       type: UserActionsTypes.LOGIN_USER
     });
 
-    this.authService.register(user).subscribe(
+    this.authService.login(user).subscribe(
       response => {
 
         console.log('LOGIN_USER_SUCCES');

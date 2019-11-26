@@ -32,16 +32,17 @@
   left:0;
   right:0;
   background: #000c0c;
+  padding-top: 64px;
 }
 
-mat-sidenav {
+.side-nav-button {
+  width: 100%;
+}
+
+.side-nav {
   background-color: rgba(228, 228, 228, 0.35);
   color: #000c0c;
   padding-top: 59px;
-}
-
-mat-sidenav-content {
-  padding-top: 64px;
 }
 
 .main-body {

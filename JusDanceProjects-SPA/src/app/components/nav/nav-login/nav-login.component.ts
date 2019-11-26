@@ -4,6 +4,7 @@ import { User } from '@models/user';
 import { Loadable } from '@redux/helper/loadable';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '@redux/store';
+import { UserActions } from '@redux/actions/user.action';
 
 @Component({
   selector: 'app-nav-login',
@@ -14,7 +15,7 @@ export class NavLoginComponent implements OnInit {
   loginForm: FormGroup;
   loadAble: Loadable;
 
-  constructor(private fb: FormBuilder, private ngRedux: NgRedux<IAppState>) { }
+  constructor(private fb: FormBuilder, private ngRedux: NgRedux<IAppState>, private userActions: UserActions) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -29,16 +30,20 @@ export class NavLoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
+    this.loginForm.markAllAsTouched();
     console.log('onLoginSubmit()');
-    const user = this.loginForm.value as User;
-    console.log(user);
+
+    if (this.loginForm.valid) {
+
+      const user = this.loginForm.value as User;
+
+      this.userActions.login(user);
+    }
   }
 
   validateLoginForm: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     const username = control.get('username');
     const password = control.get('password');
-
-    console.log('validateLoginForm()');
 
     return username.valid && password.valid ? null : { 'All required fields need to be filled in': true };
   }
