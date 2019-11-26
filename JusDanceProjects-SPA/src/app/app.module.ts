@@ -36,6 +36,7 @@ import { CUSTOM_ERRORS } from './shared/custom-errors';
 import { RegisterSuccesComponent } from '@components/register/register-succes/register-succes.component';
 import { HeaderComponent } from '@components/nav/header/header.component';
 import { FooterComponent } from '@components/nav/footer/footer.component';
+import { ErrorInterceptorProvider } from '@services/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import { FooterComponent } from '@components/nav/footer/footer.component';
     NgReduxRouterModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [{
+  providers: [ErrorInterceptorProvider, {
     provide: CUSTOM_ERROR_MESSAGES,
     useValue: CUSTOM_ERRORS,
     multi: true

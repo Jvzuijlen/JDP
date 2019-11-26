@@ -48,9 +48,7 @@ namespace JusDanceProjects.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDTO userLoginDto)
         {
-            userLoginDto.Username = userLoginDto.Username.ToLower();
-
-            var userFromRepo = await _repo.Login(userLoginDto.Username, userLoginDto.Password);
+            var userFromRepo = await _repo.Login(userLoginDto.Username.ToLower(), userLoginDto.Password);
 
             if (userFromRepo == null)
                 return Unauthorized();
