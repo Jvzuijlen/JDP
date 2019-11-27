@@ -36,6 +36,7 @@ import { CUSTOM_ERRORS } from './shared/custom-errors';
 import { ErrorInterceptorProvider } from '@services/error.interceptor';
 import { LoginComponent } from '@components/login/login.component';
 import { AlertModule } from '@services/_alert';
+import { FooterComponent } from '@components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AlertModule } from '@services/_alert';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

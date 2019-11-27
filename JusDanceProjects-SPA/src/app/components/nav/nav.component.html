@@ -1,8 +1,6 @@
-<mat-toolbar>
+<mat-toolbar class="position-fixed">
   <mat-toolbar-row>
-    <div
-      [ngStyle]="{ display: screenWidth > lxScreenWidth ? 'none' : 'block' }"
-    >
+    <div style="display: block;">
       <button type="button" mat-icon-button>
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button>
@@ -12,9 +10,9 @@
       <a mat-button [routerLink]="'/myclasses'">Mijn Lessen</a>
     </div>
 
-    <h1 *ngIf="screenWidth > 840" class="mx-auto" [routerLink]="'/home'">
+    <a *ngIf="screenWidth > 840" class="title mx-auto" [routerLink]="'/home'">
       JusDanceProjects
-    </h1>
+    </a>
 
     <div *ngIf="authService.loggedIn(); else notLoggedIn">
       <button
@@ -48,24 +46,61 @@
 <mat-sidenav-container>
   <mat-sidenav
     #sidenav
-    [opened]="screenWidth > lxScreenWidth"
+    fixedInViewport="true"
     [mode]="screenWidth > lxScreenWidth ? 'side' : 'over'"
   >
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="'/accounts'">
+    <mat-nav-list class="mt-2">
+      <a
+        class="side-nav-item"
+        mat-list-item
+        [routerLink]="'/accounts'"
+        (click)="sidenav.close()"
+      >
+      </a>
+      <a
+        class="side-nav-item"
+        mat-list-item
+        [routerLink]="'/accounts'"
+        (click)="sidenav.close()"
+      >
         Welkom bij JusDanceProjects!
       </a>
-      <a mat-list-item [routerLink]="'/create-account'">Aanbod</a>
-      <a mat-list-item [routerLink]="'/contacts'">Rooster</a>
-      <a mat-list-item [routerLink]="'/create-contact'">DuckTape</a>
-      <a mat-list-item [routerLink]="'/activities'">Contact</a>
-      <a mat-list-item [routerLink]="'/create-activity'">Dans in beeld</a>
       <a
-        *ngIf="screenWidth < lxScreenWidth"
+        class="side-nav-item"
         mat-list-item
+        [routerLink]="'/create-account'"
         (click)="sidenav.close()"
-        mat-list-item
+        >Aanbod</a
       >
+      <a
+        class="side-nav-item"
+        mat-list-item
+        [routerLink]="'/contacts'"
+        (click)="sidenav.close()"
+        >Rooster</a
+      >
+      <a
+        class="side-nav-item"
+        mat-list-item
+        [routerLink]="'/create-contact'"
+        (click)="sidenav.close()"
+        >DuckTape</a
+      >
+      <a
+        class="side-nav-item"
+        mat-list-item
+        [routerLink]="'/activities'"
+        (click)="sidenav.close()"
+        >Contact</a
+      >
+      <a
+        class="side-nav-item"
+        mat-list-item
+        [routerLink]="'/create-activity'"
+        (click)="sidenav.close()"
+        >Dans in beeld</a
+      >
+      <a class="side-nav-item" (click)="sidenav.close()" mat-list-item>
         Close
       </a>
     </mat-nav-list>
@@ -88,10 +123,12 @@
             />
           </div>
           <div class="px-5 py-3">
-              <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
           </div>
+          <app-footer></app-footer>
         </div>
       </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+

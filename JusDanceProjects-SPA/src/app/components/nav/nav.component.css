@@ -1,16 +1,31 @@
+.position-fixed{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 998
+}
+
 mat-toolbar {
   background: #000c0c;
   color: #fff;
 }
 
-mat-sidenav-content {
-  min-height: 89vh;
+mat-sidenav {
+  background: #00796B;
+  color: #fff;
 }
 
-h1 {
+.side-nav-item {
+  color: #fff;
+}
+
+.title {
   /* text-shadow: 1px 1px #ffffffd7; */
-  color: #fff; /*#2e6b61;*/
+  color: #00796B;
   font-size: x-large;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .img-container {
@@ -23,7 +38,6 @@ h1 {
   margin: auto;
   display: block;
   top: 50%;
-  bottom: 50%;
   left: 0;
   right: 0;
 }

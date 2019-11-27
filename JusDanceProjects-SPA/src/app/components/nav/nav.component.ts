@@ -18,7 +18,7 @@ import {
 export class NavComponent implements OnInit {
   title = 'JusDanceProjects-SPA';
   screenWidth: number;
-  lxScreenWidth = 1600;
+  lxScreenWidth = 1000000;
   decodeToken: DecodedToken;
 
   constructor(
