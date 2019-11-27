@@ -3,21 +3,21 @@
 // import { By } from '@angular/platform-browser';
 // import { DebugElement } from '@angular/core';
 
-// import { NavLoginComponent } from './nav-login.component';
+// import { LoginComponent } from './login.component';
 
-// describe('NavLoginComponent', () => {
-//   let component: NavLoginComponent;
-//   let fixture: ComponentFixture<NavLoginComponent>;
+// describe('LoginComponent', () => {
+//   let component: LoginComponent;
+//   let fixture: ComponentFixture<LoginComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ NavLoginComponent ]
+//       declarations: [ LoginComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(NavLoginComponent);
+//     fixture = TestBed.createComponent(LoginComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

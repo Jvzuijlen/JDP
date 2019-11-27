@@ -22,37 +22,49 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loadAble: Loadable;
 
-  constructor(private fb: FormBuilder, private userActions: UserActions, private ngRedux: NgRedux<IAppState>) {}
+  constructor(
+    private fb: FormBuilder,
+    private userActions: UserActions,
+    private ngRedux: NgRedux<IAppState>
+  ) {}
 
   ngOnInit() {
-    this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      acceptagreement: ''
-    }, { validators: this.validateRegisterForm });
+    this.registerForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        acceptagreement: ''
+      },
+      { validators: this.validateRegisterForm }
+    );
 
-    this.ngRedux.select(x => x.user).subscribe(state => {
-      this.loadAble = state;
-    });
+    this.ngRedux
+      .select(x => x.user)
+      .subscribe(state => {
+        this.loadAble = state;
+      });
   }
 
   onRegisterSubmit() {
     this.registerForm.markAllAsTouched();
+
     console.log('onRegisterSubmit()');
     if (this.registerForm.valid) {
-
       const user = this.registerForm.value as User;
 
       this.userActions.register(user);
     }
   }
 
-  validateRegisterForm: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  validateRegisterForm: ValidatorFn = (
+    control: FormGroup
+  ): ValidationErrors | null => {
     const username = control.get('username');
     const password = control.get('password');
     const accept = control.get('acceptagreement');
 
-    return username.valid && password.valid && !accept.value ? { 'All required fields need to be filled in': true } : null;
+    return username.valid && password.valid && !accept.value
+      ? { 'All required fields need to be filled in': true }
+      : null;
   }
-
 }

@@ -1,0 +1,55 @@
+<form class="px-4 py-3" [formGroup]="loginForm" (ngSubmit)="onloginSubmit()">
+  <alert></alert>
+
+  <div *ngIf="!loggedIn; else alreadyLoggedIn">
+    <h5>Login:</h5>
+
+    <div class="form-group">
+      <label class="control-label">Gebruikersnaam</label>
+      <input type="text" class="form-control" formControlName="username" />
+      <bfv-messages></bfv-messages>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">Wachtwoord</label>
+      <input type="password" class="form-control" formControlName="password" />
+      <bfv-messages></bfv-messages>
+    </div>
+
+    <label
+      ><input
+        type="checkbox"
+        name="rememberme"
+        formControlName="rememberme"
+        value="value"
+      />
+      Onthoudt mij!</label
+    >
+
+    <div class="login-button-div">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="loginForm.invalid || loadAble.loading || loadAble.success"
+      >
+        Inloggen
+      </button>
+    </div>
+
+    <div>
+      <mat-divider class="my-3"></mat-divider>
+
+      <button class="mr-2" mat-stroked-button [routerLink]="['/home']">
+        Wachtwoord vergeten?
+      </button>
+
+      <button class="mr-2" mat-stroked-button [routerLink]="['/register']">
+        Nog geen account? Registreer hier
+      </button>
+    </div>
+  </div>
+
+  <ng-template #alreadyLoggedIn>
+    <div>Je bent al ingelod</div>
+  </ng-template>
+</form>

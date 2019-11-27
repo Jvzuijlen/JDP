@@ -2,10 +2,18 @@ import { routerReducer } from '@angular-redux/router';
 import { combineReducers } from 'redux';
 import { userReducer } from './reducers/user.reducer';
 import { Loadable } from './helper/loadable';
-import { User } from '@models/user';
+
+export interface DecodedToken {
+  nameid: string;
+  unique_name: string;
+  nbf: string;
+  exp: string;
+  iat: string;
+}
 
 export interface IUserState extends Loadable {
-  token: string;
+  loggedIn: boolean;
+  decodeToken: DecodedToken;
 }
 export interface IAppState {
   user?: IUserState;

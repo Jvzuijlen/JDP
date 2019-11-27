@@ -5,13 +5,15 @@ import {
   createDefaultLoadable,
   onLoadableLoad,
   onLoadableSuccess,
-  onLoadableError
+  onLoadableError,
+  onLoadableReset
 } from '@redux/helper/loadable';
 
 export function createDefaultIUserState(): IUserState {
   return {
     ...createDefaultLoadable(),
-    token: null
+    loggedIn: false,
+    decodeToken: null
   };
 }
 
@@ -27,11 +29,15 @@ export function userReducer(
     case UserActionsTypes.REGISTER_USER_ERROR:
       return tassign(state, onLoadableError(state, action.payload));
     case UserActionsTypes.LOGIN_USER:
-      return tassign(state, onLoadableLoad(state));
+      return onLoadableLoad(state);
     case UserActionsTypes.LOGIN_USER_SUCCES:
-      return tassign(state, onLoadableSuccess(state), state.token = action.payload);
+      return tassign(onLoadableSuccess(state), {loggedIn: action.payload.loggedIn, decodeToken: action.payload.decodeToken});
     case UserActionsTypes.LOGIN_USER_ERROR:
-      return tassign(state, onLoadableError(state, action.payload));
+      return onLoadableError(state, action.payload);
+    case UserActionsTypes.LOGOUT_USER:
+      return tassign(state, {loggedIn: action.payload.loggedIn, decodeToken: action.payload.decodeToken});
+    case UserActionsTypes.LOADABLE_RESET:
+      return onLoadableReset(state);
     default:
       return state;
   }
