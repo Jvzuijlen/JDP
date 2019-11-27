@@ -41,3 +41,12 @@ export function onLoadableError<T extends Loadable>(
     error: error
   } as T;
 }
+
+export function onLoadableReset<T extends Loadable>(loadable: T): T {
+  return {
+    ...(loadable as any),
+    loading: false,
+    success: false,
+    error: null
+  } as T;
+}

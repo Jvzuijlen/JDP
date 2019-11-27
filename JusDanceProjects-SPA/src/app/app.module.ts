@@ -7,7 +7,8 @@ import {
   MatButtonModule,
   MatListModule,
   MatFormFieldModule,
-  MatMenuModule
+  MatMenuModule,
+  MatDividerModule
 } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgBootstrapFormValidationModule, CUSTOM_ERROR_MESSAGES } from 'ng-bootstrap-form-validation';
@@ -16,7 +17,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { ValueComponent } from './components/value/value.component';
 import { NavComponent } from './components/nav/nav.component';
-import { NavLoginComponent } from './components/nav/nav-login/nav-login.component';
 import { IAppState, rootReducer } from '@redux/store';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -33,22 +33,18 @@ import { HomeComponent } from '@components/home/home.component';
 import { RegisterComponent } from '@components/register/register.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CUSTOM_ERRORS } from './shared/custom-errors';
-import { RegisterSuccesComponent } from '@components/register/register-succes/register-succes.component';
-import { HeaderComponent } from '@components/nav/header/header.component';
-import { FooterComponent } from '@components/nav/footer/footer.component';
 import { ErrorInterceptorProvider } from '@services/error.interceptor';
+import { LoginComponent } from '@components/login/login.component';
+import { AlertModule } from '@services/_alert';
 
 @NgModule({
   declarations: [
     AppComponent,
     ValueComponent,
     NavComponent,
-    NavLoginComponent,
     HomeComponent,
+    LoginComponent,
     RegisterComponent,
-    RegisterSuccesComponent,
-    HeaderComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +65,9 @@ import { ErrorInterceptorProvider } from '@services/error.interceptor';
     NgbModule,
     NgReduxModule,
     NgReduxRouterModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AlertModule,
+    MatDividerModule
   ],
   providers: [ErrorInterceptorProvider, {
     provide: CUSTOM_ERROR_MESSAGES,
