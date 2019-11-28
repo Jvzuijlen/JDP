@@ -12,6 +12,7 @@ using System.Text;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using JusDanceProjects.API.Helpers;
+using AutoMapper;
 
 namespace JusDanceProjects.API
 {
@@ -34,6 +35,7 @@ namespace JusDanceProjects.API
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+            services.AddAutoMapper(typeof(UserRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {

@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using JusDanceProjects.API.Data;
 using JusDanceProjects.API.DTOs;
 using JusDanceProjects.API.Models;
@@ -18,11 +19,13 @@ namespace JusDanceProjects.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -35,11 +38,13 @@ namespace JusDanceProjects.API.Controllers
             if (await _repo.UserExists(userForRegisterDTO.Email))
                 return BadRequest("Username already exists");
 
-            var userToCreate = new User
-            {
-                Email = userForRegisterDTO.Email,
-                FirstName = userForRegisterDTO.FirstName
-            };
+            var userToCreate = _mapper.Map<User>(userForRegisterDTO);
+
+            // var userToCreate = new User
+            // {
+            //     Email = userForRegisterDTO.Email,
+            //     FirstName = userForRegisterDTO.FirstName
+            // };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDTO.Password);
 

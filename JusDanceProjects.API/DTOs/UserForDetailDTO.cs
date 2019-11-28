@@ -22,6 +22,6 @@ namespace JusDanceProjects.API.DTOs
 
         public DateTime LastActive { get; set; }
 
-        public string ProfilePictureUrl { get; set; }
+        public PhotoForDetailDTO ProfilePicture { get; set; }
     }
 }

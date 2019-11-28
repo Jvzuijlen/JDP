@@ -18,7 +18,6 @@ namespace JusDanceProjects.API.DTOs
         [Required]
         public string LastName { get; set; }
 
-        [Required]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
