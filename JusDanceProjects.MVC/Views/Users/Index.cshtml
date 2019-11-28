@@ -1,55 +1,26 @@
-@model IEnumerable<JusDanceProjects.API.Models.User>
+@model List<JusDanceProjects.API.Models.User>
 
 @{
-    Layout = null;
 }
 
-<!DOCTYPE html>
+<form asp-controller="Users" asp-action="Index">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PasswordHash)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PasswordSalt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PasswordHash)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PasswordSalt)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</body>
-</html>
+<div class="container">
+    <div class="row">
+    @foreach(var item in Model)
+    {
+      <div class="card col-12 col-sm-6 col-lg-3 col-xl-2">
+        <div class="card-body">
+            <h5 class="card-title">@item.Username</h5>
+            <p class="card-text">@item.Id</p>
+            <a asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
+          </div>
+        </div>
+    }
+    </div>
+</div>
