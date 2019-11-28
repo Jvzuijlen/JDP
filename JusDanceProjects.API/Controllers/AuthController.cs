@@ -30,14 +30,15 @@ namespace JusDanceProjects.API.Controllers
         {
             // validate request
 
-            userForRegisterDTO.Username = userForRegisterDTO.Username.ToLower();
+            userForRegisterDTO.Email = userForRegisterDTO.Email.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDTO.Username))
+            if (await _repo.UserExists(userForRegisterDTO.Email))
                 return BadRequest("Username already exists");
 
             var userToCreate = new User
             {
-                Username = userForRegisterDTO.Username
+                Email = userForRegisterDTO.Email,
+                FirstName = userForRegisterDTO.FirstName
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDTO.Password);
@@ -46,9 +47,9 @@ namespace JusDanceProjects.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserLoginDTO userLoginDto)
+        public async Task<IActionResult> Login(UserForLoginDTO userForLoginDTO)
         {
-            var userFromRepo = await _repo.Login(userLoginDto.Username.ToLower(), userLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDTO.Email.ToLower(), userForLoginDTO.Password);
 
             if (userFromRepo == null)
                 return Unauthorized();
@@ -56,7 +57,7 @@ namespace JusDanceProjects.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+                new Claim(ClaimTypes.Name, userFromRepo.FirstName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8

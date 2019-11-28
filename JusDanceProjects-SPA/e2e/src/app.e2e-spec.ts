@@ -3,7 +3,7 @@ import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
-  const testUsername = 'Test123456';
+  const testEmail = 'test@test.com';
   const testPassword = 'Test123!';
 
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('workspace-project App', () => {
     expect(page.getText('login-title')).toContain('Login');
 
     // Act: Fill in login info
-    page.enterText('login-username', testUsername);
+    page.enterText('login-email', testEmail);
     page.enterText('login-password', testPassword);
 
     // Act: Click login button

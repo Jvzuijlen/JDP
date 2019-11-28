@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group(
       {
-        username: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
@@ -64,11 +64,11 @@ export class RegisterComponent implements OnInit {
   validateRegisterForm: ValidatorFn = (
     control: FormGroup
   ): ValidationErrors | null => {
-    const username = control.get('username');
+    const email = control.get('email');
     const password = control.get('password');
     const accept = control.get('acceptagreement');
 
-    return username.valid && password.valid && !accept.value
+    return email.valid && password.valid && !accept.value
       ? { 'All required fields need to be filled in': true }
       : null;
   }

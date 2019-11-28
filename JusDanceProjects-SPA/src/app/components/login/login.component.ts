@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
       rememberme: ''
     }, { validators: this.validateloginForm });
@@ -43,9 +43,9 @@ export class LoginComponent implements OnInit {
   }
 
   validateloginForm: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-    const username = control.get('username');
+    const email = control.get('email');
     const password = control.get('password');
 
-    return username.valid && password.valid ? null : { 'All required fields need to be filled in': true };
+    return email.valid && password.valid ? null : { 'All required fields need to be filled in': true };
   }
 }

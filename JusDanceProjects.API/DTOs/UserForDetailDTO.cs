@@ -1,10 +1,10 @@
 using System;
 
-namespace JusDanceProjects.API.Models
+namespace JusDanceProjects.API.DTOs
 {
-    public class User
+    public class UserForDetailDTO
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
         public string Email { get; set; }
 
@@ -22,10 +22,6 @@ namespace JusDanceProjects.API.Models
 
         public DateTime LastActive { get; set; }
 
-        public Photo ProfilePicture { get; set; }
-
-        public byte[] PasswordHash { get; set; }
-
-        public byte[] PasswordSalt { get; set; }
+        public string ProfilePictureUrl { get; set; }
     }
 }
