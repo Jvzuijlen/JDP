@@ -8,14 +8,59 @@
   <h5>Registreer een nieuw account:</h5>
 
   <div class="form-group">
-    <label class="control-label">Gebruikersnaam</label>
-    <input type="text" class="form-control" formControlName="username" />
+    <label class="control-label">Email</label>
+    <input type="email" class="form-control" formControlName="username" />
     <bfv-messages></bfv-messages>
   </div>
 
   <div class="form-group">
     <label class="control-label">Wachtwoord</label>
     <input type="password" class="form-control" formControlName="password" />
+    <bfv-messages></bfv-messages>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">Voornaam</label>
+    <input type="text" class="form-control" formControlName="firstname" />
+    <bfv-messages></bfv-messages>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">Achternaam</label>
+    <input type="text" class="form-control" formControlName="lastname" />
+    <bfv-messages></bfv-messages>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">Geboortedatum</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <button
+          mat-icon-button
+          class="btn btn-outline-secondary calendar fa fa-calendar"
+          (click)="d.toggle()"
+          type="button"
+        ></button>
+      </div>
+      <input
+        class="form-control"
+        placeholder="yyyy-mm-dd"
+        formControlName="birthdate"
+        ngbDatepicker
+        #d="ngbDatepicker"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">Adres</label>
+    <input type="text" class="form-control" formControlName="address" />
+    <bfv-messages></bfv-messages>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">Telefoon</label>
+    <input type="text" class="form-control" formControlName="phonenumber" />
     <bfv-messages></bfv-messages>
   </div>
 
