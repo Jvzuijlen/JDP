@@ -1,13 +1,13 @@
 <mat-toolbar class="position-fixed">
   <mat-toolbar-row>
     <div style="display: block;">
-      <button type="button" mat-icon-button>
-        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      <button type="button" mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
       </button>
     </div>
 
     <div *ngIf="authService.loggedIn()">
-      <a mat-button [routerLink]="'/myclasses'">Mijn Lessen</a>
+      <button mat-button matTooltip="Mijn lessen" id="nav-myclasses-menu-button" [routerLink]="'/myclasses'">Mijn lessen</button>
     </div>
 
     <a id="nav-title" *ngIf="screenWidth > 840" class="title mx-auto" [routerLink]="'/home'">
@@ -19,26 +19,27 @@
         mat-button
         matTooltip="Mijn Account"
         [matMenuTriggerFor]="accountMenu"
+        id="nav-account-menu-button"
       >
         <mat-icon>account_circle</mat-icon>
         {{ decodeToken.unique_name }}
       </button>
       <mat-menu #accountMenu [overlapTrigger]="false" yPosition="below">
-        <button mat-menu-item [routerLink]="'/home'">
+        <button id="nav-account-button" mat-menu-item [routerLink]="'/account'">
           <mat-icon>person</mat-icon><span>Mijn Account</span>
         </button>
         <!-- <button mat-menu-item [routerLink]="'/home'">
           <mat-icon>help</mat-icon><span>Instellingen</span>
         </button> -->
         <mat-divider></mat-divider>
-        <button mat-menu-item (click)="onLogout()">
+        <button id="nav-logout-button" mat-menu-item (click)="onLogout()">
           <mat-icon>exit_to_app</mat-icon>Uitloggen
         </button>
       </mat-menu>
     </div>
 
     <ng-template #notLoggedIn>
-      <a mat-button [routerLink]="'/login'">Inloggen</a>
+      <a id="nav-login-button" mat-button [routerLink]="'/login'">Inloggen</a>
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>

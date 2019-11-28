@@ -37,6 +37,7 @@ import { ErrorInterceptorProvider } from '@services/error.interceptor';
 import { LoginComponent } from '@components/login/login.component';
 import { AlertModule } from '@services/_alert';
 import { FooterComponent } from '@components/footer/footer.component';
+import { AccountComponent } from '@components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FooterComponent } from '@components/footer/footer.component';
     LoginComponent,
     RegisterComponent,
     FooterComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,

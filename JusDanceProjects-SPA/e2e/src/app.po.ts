@@ -1,11 +1,19 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
-    return browser.get(browser.baseUrl) as Promise<any>;
+  navigateTo(url?: string) {
+    return browser.get(browser.baseUrl + url) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.id('nav-title')).getText() as Promise<string>;
+  getText(idName: string) {
+    return element(by.id(idName)).getText() as Promise<string>;
+  }
+
+  clickButton(idName: string) {
+    element(by.id(idName)).click();
+  }
+
+  enterText(idName: string, text: string) {
+    element(by.id(idName)).sendKeys(text);
   }
 }
