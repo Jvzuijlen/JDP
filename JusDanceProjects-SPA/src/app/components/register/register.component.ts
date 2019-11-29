@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
         password: ['', Validators.required],
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
-        birthdate: ['', Validators.required],
+        dateofbirth: ['', Validators.required],
         address: ['', Validators.required],
         phonenumber: ['', [Validators.required, Validators.minLength(10)]],
         acceptagreement: ''
@@ -57,6 +57,12 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const user = this.registerForm.value as User;
 
+      user.dateofbirth = new Date(
+        this.registerForm.controls.dateofbirth.value.year,
+        this.registerForm.controls.dateofbirth.value.month - 1,
+        this.registerForm.controls.dateofbirth.value.day
+      );
+
       this.userActions.register(user);
     }
   }
@@ -71,5 +77,5 @@ export class RegisterComponent implements OnInit {
     return email.valid && password.valid && !accept.value
       ? { 'All required fields need to be filled in': true }
       : null;
-  }
+  };
 }

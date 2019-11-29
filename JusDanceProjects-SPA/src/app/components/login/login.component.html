@@ -1,56 +1,70 @@
-<form class="px-4 py-3" [formGroup]="loginForm" (ngSubmit)="onloginSubmit()">
-  <alert></alert>
-
-  <div *ngIf="!loggedIn; else alreadyLoggedIn">
-    <h5 id="login-title">Login:</h5>
-
-    <div class="form-group">
-      <label class="control-label">Email</label>
-      <input id="login-email" type="email" class="form-control" formControlName="email" />
-      <bfv-messages></bfv-messages>
-    </div>
-
-    <div class="form-group">
-      <label class="control-label">Wachtwoord</label>
-      <input id="login-password" type="password" class="form-control" formControlName="password" />
-      <bfv-messages></bfv-messages>
-    </div>
-
-    <label
-      ><input
-        type="checkbox"
-        name="rememberme"
-        formControlName="rememberme"
-        value="value"
-      />
-      Onthoudt mij!</label
-    >
-
-    <div class="login-button-div">
-      <button
-        id="login-button"
-        mat-raised-button
-        color="primary"
-        [disabled]="loginForm.invalid || loadAble.loading || loadAble.success"
-      >
-        Inloggen
-      </button>
-    </div>
-
-    <div>
-      <mat-divider class="my-3"></mat-divider>
-
-      <button class="mr-2" mat-stroked-button [routerLink]="['/home']">
-        Wachtwoord vergeten?
-      </button>
-
-      <button class="mr-2" mat-stroked-button [routerLink]="['/register']">
-        Nog geen account? Registreer hier
-      </button>
+<div class="container">
+  <div class="row">
+    <div class="col my-4 mx-5">
+        <form  [formGroup]="loginForm" (ngSubmit)="onloginSubmit()">
+            <div *ngIf="!loggedIn; else alreadyLoggedIn">
+              <h5 id="login-title">Login:</h5>
+          
+              <div class="form-group">
+                <label class="control-label">Email</label>
+                <input
+                  id="login-email"
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                />
+                <bfv-messages></bfv-messages>
+              </div>
+          
+              <div class="form-group">
+                <label class="control-label">Wachtwoord</label>
+                <input
+                  id="login-password"
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                />
+                <bfv-messages></bfv-messages>
+              </div>
+          
+              <label
+                ><input
+                  type="checkbox"
+                  name="rememberme"
+                  formControlName="rememberme"
+                  value="value"
+                />
+                Onthoudt mij!</label
+              >
+          
+              <div class="login-button-div">
+                <button
+                  id="login-button"
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="loginForm.invalid || loadAble.loading || loadAble.success"
+                >
+                  Inloggen
+                </button>
+              </div>
+          
+              <div>
+                <mat-divider class="my-3"></mat-divider>
+          
+                <button class="mr-2" mat-stroked-button [routerLink]="['/home']">
+                  Wachtwoord vergeten?
+                </button>
+          
+                <button class="mr-2" mat-stroked-button [routerLink]="['/register']">
+                  Nog geen account? Registreer hier
+                </button>
+              </div>
+            </div>
+          
+            <ng-template #alreadyLoggedIn>
+              <div>Je bent al ingelod</div>
+            </ng-template>
+          </form>
     </div>
   </div>
-
-  <ng-template #alreadyLoggedIn>
-    <div>Je bent al ingelod</div>
-  </ng-template>
-</form>
+</div>

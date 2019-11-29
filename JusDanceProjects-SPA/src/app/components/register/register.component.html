@@ -1,86 +1,97 @@
-<form
-  class="px-4 py-3"
-  [formGroup]="registerForm"
-  (ngSubmit)="onRegisterSubmit()"
->
-  <alert></alert>
+<div class="container">
+  <div class="row">
+    <div class="col my-4 mx-5">
+      <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+        <h5>Registreer een nieuw account:</h5>
 
-  <h5>Registreer een nieuw account:</h5>
+        <div class="form-group">
+          <label class="control-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" />
+          <bfv-messages></bfv-messages>
+        </div>
 
-  <div class="form-group">
-    <label class="control-label">Email</label>
-    <input type="email" class="form-control" formControlName="email" />
-    <bfv-messages></bfv-messages>
-  </div>
+        <div class="form-group">
+          <label class="control-label">Wachtwoord</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+          />
+          <bfv-messages></bfv-messages>
+        </div>
 
-  <div class="form-group">
-    <label class="control-label">Wachtwoord</label>
-    <input type="password" class="form-control" formControlName="password" />
-    <bfv-messages></bfv-messages>
-  </div>
+        <div class="form-group">
+          <label class="control-label">Voornaam</label>
+          <input type="text" class="form-control" formControlName="firstname" />
+          <bfv-messages></bfv-messages>
+        </div>
 
-  <div class="form-group">
-    <label class="control-label">Voornaam</label>
-    <input type="text" class="form-control" formControlName="firstname" />
-    <bfv-messages></bfv-messages>
-  </div>
+        <div class="form-group">
+          <label class="control-label">Achternaam</label>
+          <input type="text" class="form-control" formControlName="lastname" />
+          <bfv-messages></bfv-messages>
+        </div>
 
-  <div class="form-group">
-    <label class="control-label">Achternaam</label>
-    <input type="text" class="form-control" formControlName="lastname" />
-    <bfv-messages></bfv-messages>
-  </div>
+        <div class="form-group">
+          <label class="control-label">Geboortedatum</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button
+                mat-icon-button
+                class="btn btn-outline-secondary calendar fa fa-calendar"
+                (click)="d.toggle()"
+                type="button"
+              ></button>
+            </div>
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              formControlName="dateofbirth"
+              ngbDatepicker
+              type="datetime"
+              #d="ngbDatepicker"
+            />
+          </div>
+        </div>
 
-  <div class="form-group">
-    <label class="control-label">Geboortedatum</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <button
-          mat-icon-button
-          class="btn btn-outline-secondary calendar fa fa-calendar"
-          (click)="d.toggle()"
-          type="button"
-        ></button>
-      </div>
-      <input
-        class="form-control"
-        placeholder="yyyy-mm-dd"
-        formControlName="birthdate"
-        ngbDatepicker
-        #d="ngbDatepicker"
-      />
+        <div class="form-group">
+          <label class="control-label">Adres</label>
+          <input type="text" class="form-control" formControlName="address" />
+          <bfv-messages></bfv-messages>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Telefoon</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="phonenumber"
+          />
+          <bfv-messages></bfv-messages>
+        </div>
+
+        <label
+          ><input
+            type="checkbox"
+            name="acceptagreement"
+            formControlName="acceptagreement"
+            value="value"
+          />
+          Ik accepteer de voorwaarden</label
+        >
+
+        <div class="register-button-div">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="
+              registerForm.invalid || loadAble.loading || loadAble.success
+            "
+          >
+            Registreren
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="form-group">
-    <label class="control-label">Adres</label>
-    <input type="text" class="form-control" formControlName="address" />
-    <bfv-messages></bfv-messages>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label">Telefoon</label>
-    <input type="text" class="form-control" formControlName="phonenumber" />
-    <bfv-messages></bfv-messages>
-  </div>
-
-  <label
-    ><input
-      type="checkbox"
-      name="acceptagreement"
-      formControlName="acceptagreement"
-      value="value"
-    />
-    Ik accepteer de voorwaarden</label
-  >
-
-  <div class="register-button-div">
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="registerForm.invalid || loadAble.loading || loadAble.success"
-    >
-      Registreren
-    </button>
-  </div>
-</form>
+</div>

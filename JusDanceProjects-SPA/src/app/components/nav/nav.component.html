@@ -7,10 +7,22 @@
     </div>
 
     <div *ngIf="authService.loggedIn()">
-      <button mat-button matTooltip="Mijn lessen" id="nav-myclasses-menu-button" [routerLink]="'/myclasses'">Mijn lessen</button>
+      <button
+        mat-button
+        matTooltip="Mijn lessen"
+        id="nav-myclasses-menu-button"
+        [routerLink]="'/myclasses'"
+      >
+        Mijn lessen
+      </button>
     </div>
 
-    <a id="nav-title" *ngIf="screenWidth > 840" class="title mx-auto" [routerLink]="'/home'">
+    <a
+      id="nav-title"
+      *ngIf="screenWidth > 840"
+      class="title mx-auto"
+      [routerLink]="'/home'"
+    >
       JusDanceProjects
     </a>
 
@@ -123,13 +135,17 @@
               alt=""
             />
           </div>
-          <div class="px-5 py-3">
-            <router-outlet></router-outlet>
+          <div class="container">
+            <div class="row">
+              <div class="col mt-3 mx-5">
+                  <alert></alert>
+              </div>
+            </div>
           </div>
+          <router-outlet></router-outlet>
           <app-footer></app-footer>
         </div>
       </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
