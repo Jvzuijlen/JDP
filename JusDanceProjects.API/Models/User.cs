@@ -1,9 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JusDanceProjects.API.Models
 {
     public class User
     {
+        [Key]
         public int Id { get; set; } 
 
         public string Email { get; set; }
@@ -18,11 +22,12 @@ namespace JusDanceProjects.API.Models
 
         public string PhoneNumber { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime Created { get; set; }
 
         public DateTime LastActive { get; set; }
 
-        public Photo ProfilePicture { get; set; }
+        public virtual Photo ProfilePicture { get; set; }
 
         public byte[] PasswordHash { get; set; }
 

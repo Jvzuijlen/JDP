@@ -3,92 +3,90 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JusDanceProjects.API.Data;
 using JusDanceProjects.API.Models;
 
 namespace JusDanceProjects.MVC.Controllers
 {
-    public class UsersController : Controller
+    public class PhotosController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IMiscRepository _repo;
 
-        public UsersController(DataContext context)
+        public PhotosController(IMiscRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        // GET: Users
-        public async Task<IActionResult> Index()
+        // GET: Photos
+        public IActionResult Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(_repo.GetPhotos());
         }
 
-        // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Photos/Details/5
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            var photo = _repo.GetPhoto((int)id);
+
+            if (photo == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(photo);
         }
 
-        // GET: Users/Create
+        // GET: Photos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Photos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,PasswordHash,PasswordSalt")] User user)
+        public IActionResult Create([Bind("Id,Url,Description,DateAdded")] Photo photo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
+                _repo.SavePhoto(photo);
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(photo);
         }
 
-        // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Photos/Edit/5
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var photo = _repo.GetPhoto((int)id);
+            if (photo == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View(photo);
         }
 
-        // POST: Users/Edit/5
+        // POST: Photos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,PasswordHash,PasswordSalt")] User user)
+        public IActionResult Edit(int id, [Bind("Id,Url,Description,DateAdded")] Photo photo)
         {
-            if (id != user.Id)
+            if (id != photo.Id)
             {
                 return NotFound();
             }
@@ -97,12 +95,11 @@ namespace JusDanceProjects.MVC.Controllers
             {
                 try
                 {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
+                    _repo.SavePhoto(photo);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!PhotoExists(photo.Id))
                     {
                         return NotFound();
                     }
@@ -113,41 +110,40 @@ namespace JusDanceProjects.MVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(photo);
         }
 
-        // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Photos/Delete/5
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            var photo = _repo.GetPhoto((int)id);
+            if (photo == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(photo);
         }
 
-        // POST: Users/Delete/5
+        // POST: Photos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            _repo.DeletePhoto(id);
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool PhotoExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            var photos = _repo.GetPhotos();
+            return photos.Any(e => e.Id == id);
         }
     }
 }

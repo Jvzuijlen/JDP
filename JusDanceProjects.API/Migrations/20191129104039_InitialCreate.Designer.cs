@@ -9,14 +9,63 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JusDanceProjects.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191128175447_ExtendedUserClass")]
-    partial class ExtendedUserClass
+    [Migration("20191129104039_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
+
+            modelBuilder.Entity("JusDanceProjects.API.Models.DanceCourse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DanceCourseTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TeacherId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DanceCourseTypeId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("DanceCourses");
+                });
+
+            modelBuilder.Entity("JusDanceProjects.API.Models.DanceCourseType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("PhotoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhotoId");
+
+                    b.ToTable("DanceCourseTypes");
+                });
 
             modelBuilder.Entity("JusDanceProjects.API.Models.Photo", b =>
                 {
@@ -25,6 +74,7 @@ namespace JusDanceProjects.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateAdded")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -48,6 +98,7 @@ namespace JusDanceProjects.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -96,6 +147,26 @@ namespace JusDanceProjects.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Values");
+                });
+
+            modelBuilder.Entity("JusDanceProjects.API.Models.DanceCourse", b =>
+                {
+                    b.HasOne("JusDanceProjects.API.Models.DanceCourseType", "DanceCourseType")
+                        .WithMany("Courses")
+                        .HasForeignKey("DanceCourseTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JusDanceProjects.API.Models.User", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+                });
+
+            modelBuilder.Entity("JusDanceProjects.API.Models.DanceCourseType", b =>
+                {
+                    b.HasOne("JusDanceProjects.API.Models.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
                 });
 
             modelBuilder.Entity("JusDanceProjects.API.Models.User", b =>

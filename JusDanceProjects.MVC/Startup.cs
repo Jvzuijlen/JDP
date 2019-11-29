@@ -26,6 +26,8 @@ namespace JusDanceProjects.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IMiscRepository, MiscRepository>();
+            services.AddTransient<IDanceRepository, DanceRepository>();
             services.AddControllersWithViews();
         }
 
