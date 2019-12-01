@@ -21,15 +21,15 @@ namespace JusDanceProjects.MVC.Controllers
         }
 
         // GET: DanceCourseTypes
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var courses = _repo.GetDanceCourseTypes();
+            var courses = await _repo.GetDanceCourseTypes();
             List<DanceCourseTypeVM> courseList = new List<DanceCourseTypeVM>();
             foreach(DanceCourseType course in courses)
             {
                 courseList.Add(ViewModelCreator.IndexAnimalCatVm(course));
             }
-            
+
             return View(courseList);
         }
 
@@ -107,7 +107,7 @@ namespace JusDanceProjects.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Title,Description,Visible")] DanceCourseType danceCourseType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Visible")] DanceCourseType danceCourseType)
         {
             if (id != danceCourseType.Id)
             {
@@ -122,7 +122,7 @@ namespace JusDanceProjects.MVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DanceCourseTypeExists(danceCourseType.Id))
+                    if (!await DanceCourseTypeExists(danceCourseType.Id))
                     {
                         return NotFound();
                     }
@@ -162,9 +162,9 @@ namespace JusDanceProjects.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DanceCourseTypeExists(int id)
+        private async Task<bool> DanceCourseTypeExists(int id)
         {
-            var danceCourseTypes = _repo.GetDanceCourseTypes();
+            var danceCourseTypes = await _repo.GetDanceCourseTypes();
             return danceCourseTypes.Any(e => e.Id == id);
         }
     }

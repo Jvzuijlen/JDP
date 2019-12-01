@@ -63,9 +63,9 @@ namespace JusDanceProjects.API.Data
             return danceCourseType;
         }
 
-        public IEnumerable<DanceCourseType> GetDanceCourseTypes()
+        public async Task<IEnumerable<DanceCourseType>> GetDanceCourseTypes()
         {
-            var danceCourseTypes = _context.DanceCourseTypes.Include(p => p.Photo).ToList();
+            var danceCourseTypes = await _context.DanceCourseTypes.Include(p => p.Photo).ToListAsync();
             return danceCourseTypes;
         }
     }

@@ -10,7 +10,7 @@ namespace JusDanceProjects.API.Data
         void DeleteDanceCourseType(int id);
         List<DanceCourseType> FindDanceCourseType(string search);
         
-        IEnumerable<DanceCourseType> GetDanceCourseTypes();
+        Task<IEnumerable<DanceCourseType>> GetDanceCourseTypes();
         DanceCourseType GetDanceCourseType(int id);
     }
 }
