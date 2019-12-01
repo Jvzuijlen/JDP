@@ -19,7 +19,14 @@ namespace JusDanceProjects.API.Data
         public void DeleteDanceCourseType(int id)
         {
             var course = this.GetDanceCourseType(id);
-            _context.Photos.Remove(course.Photo);
+
+            // Check if Phot isnt null
+            if (course.Photo != null)
+            {
+                // Delete Photo aswell
+                _context.Photos.Remove(course.Photo);
+            }
+            
             _context.DanceCourseTypes.Remove(course);
             _context.SaveChanges();
         }

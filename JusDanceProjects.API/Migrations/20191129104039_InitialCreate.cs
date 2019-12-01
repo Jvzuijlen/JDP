@@ -54,8 +54,8 @@ namespace JusDanceProjects.API.Migrations
                         column: x => x.PhotoId,
                         principalTable: "Photos",
                         principalColumn: "Id",
-                        // Cascade: Delete Photo on DanceCourseType deletion
-                        onDelete: ReferentialAction.Cascade);
+                        // SetNull: On Photo Delete Set Photo to null in dancecoursetype
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,8 +84,8 @@ namespace JusDanceProjects.API.Migrations
                         column: x => x.ProfilePictureId,
                         principalTable: "Photos",
                         principalColumn: "Id",
-                        // Cascade -> Delete photo on User deletion
-                        onDelete: ReferentialAction.Cascade);
+                        // SetNull: On Photo Delete Set Photo to null in user
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(

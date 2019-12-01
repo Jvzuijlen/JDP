@@ -61,14 +61,29 @@ namespace JusDanceProjects.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Title,Description,Visible,Photo.Url,Photo.Description")] DanceCourseType danceCourseType)
+        public IActionResult Create([Bind("Id,Title,Description,Visible,PhotoUrl")] DanceCourseTypeVM danceCourseTypeVM)
         {
             if (ModelState.IsValid)
             {
-                _repo.SaveDanceCourseType(danceCourseType);
+                Photo photo = null;
+
+                if (danceCourseTypeVM.PhotoUrl != null)
+                {
+                    photo = new Photo() { Url = danceCourseTypeVM.PhotoUrl, DateAdded = DateTime.Now };
+                }
+
+                DanceCourseType danceCourse = new DanceCourseType()
+                {
+                    Title = danceCourseTypeVM.Title,
+                    Description = danceCourseTypeVM.Description,
+                    Visible = danceCourseTypeVM.Visible,
+                    Photo = photo
+                };
+
+                _repo.SaveDanceCourseType(danceCourse);
                 return RedirectToAction(nameof(Index));
             }
-            return View(danceCourseType);
+            return View(danceCourseTypeVM);
         }
 
         // GET: DanceCourseTypes/Edit/5

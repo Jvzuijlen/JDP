@@ -4,7 +4,7 @@
 }
 
 <div class="container">
-    <div class="row p-2">
+    <div class="row mb-3">
         <form asp-controller="DanceCourseTypes" asp-action="Index">
             <h1>DanceCourseTypes:</h1>
             <a asp-controller="DanceCourseTypes" asp-action="Create" class="btn btn-primary">Create new</a>
@@ -14,12 +14,12 @@
     <div class="row">
     @foreach(var item in Model)
     {
-      <div class="card col-12 col-sm-6 col-lg-3 col-xl-2">
-        <img src="@item.PhotoUrl ?? string.empty" class="card-img-top" alt="No Photo">
+      <div class="card mb-3 mr-3 col-sm-12 .col-md-8 col-lg-6 col-xl-4">
+        <img src="@item.PhotoUrl ?? string.empty" class="card-img-top img-fluid" alt="No Photo">
         <div class="card-body">
             <h5 class="card-title">@item.Title</h5>
             <p class="card-text">@item.Description</p>
-            <a asp-controller="DanceCourseTypes" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
+            <a asp-controller="DanceCourseTypes" asp-action="Delete" asp-route-id="@item.Id" class="card-link">Delete</a>
           </div>
         </div>
     }

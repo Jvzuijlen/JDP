@@ -1,4 +1,4 @@
-@model JusDanceProjects.API.Models.DanceCourseType
+@model JusDanceProjects.MVC.Models.ViewModels.DanceCourseTypeVM
 
 @{
     Layout = null;
@@ -35,16 +35,10 @@
                 </label>
             </div>
             
-            <h2>Photo:</h2>
             <div class="form-group">
-                <label asp-for="Photo.Url" class="control-label"></label>
-                <input asp-for="Photo.Url" class="form-control" />
-                <span asp-validation-for="Photo.Url" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Photo.Description" class="control-label"></label>
-                <input asp-for="Photo.Description" class="form-control" />
-                <span asp-validation-for="Photo.Description" class="text-danger"></span>
+                <label asp-for="PhotoUrl" class="control-label"></label>
+                <input asp-for="PhotoUrl" class="form-control" />
+                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
             </div>
 
             <div class="form-group">
