@@ -3,7 +3,7 @@ import { NgRedux } from '@angular-redux/store';
 import { IUserState } from '@redux/store';
 import { User } from '@models/user';
 import { AuthService } from '@services/auth.service';
-import { AlertService } from '@services/_alert';
+import { AlertService, Alert, AlertType } from '@services/_alert';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 
@@ -39,11 +39,19 @@ export class UserActions {
     this.authService.register(user).subscribe(
       response => {
         if (response == null) {
-          this.alertService.success('Register Succesfull!');
+          this.alertService.alert(
+            new Alert({
+              message: 'Succesfully registered! You can login now:',
+              type: AlertType.Success,
+              keepAfterRouteChange: true
+            })
+          );
 
           this.ngRedux.dispatch({
             type: UserActionsTypes.REGISTER_USER_SUCCES
           });
+
+          this.router.navigate(['/login']);
         } else {
           console.log('response == null');
         }
