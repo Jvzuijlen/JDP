@@ -40,6 +40,9 @@ namespace JusDanceProjects.API.Controllers
 
             var userToCreate = _mapper.Map<User>(userForRegisterDTO);
 
+            userToCreate.Created = DateTime.Now;
+            userToCreate.LastActive = DateTime.Now;
+            
             // var userToCreate = new User
             // {
             //     Email = userForRegisterDTO.Email,

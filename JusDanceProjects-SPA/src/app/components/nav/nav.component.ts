@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserActions } from '@redux/actions/user.action';
 import { NgRedux } from '@angular-redux/store';
-import { IAppState, DecodedToken, IUserState } from '@redux/store';
+import { IAppState, DecodedToken } from '@redux/store';
 import { AuthService } from '@services/auth.service';
 import {
   Router,
@@ -24,7 +24,7 @@ export class NavComponent implements OnInit {
   constructor(
     private router: Router,
     private userActions: UserActions,
-    private ngRedux: NgRedux<IUserState>,
+    private ngRedux: NgRedux<IAppState>,
     public authService: AuthService
   ) {
     // set screenWidth on page load
@@ -56,7 +56,7 @@ export class NavComponent implements OnInit {
       userActions.login(null, authService.getToken());
     }
 
-    this.ngRedux.select(x => x).subscribe(state => {
+    this.ngRedux.select(x => x.user).subscribe(state => {
       this.decodeToken = state.decodeToken;
     });
   }

@@ -32,7 +32,25 @@
           <bfv-messages></bfv-messages>
         </div>
 
-        <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <button
+              class="btn btn-outline-secondary fa fa-calendar"
+              (click)="d2.toggle()"
+              type="button"
+            ></button>
+          </div>
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="d2"
+            formControlName="dateofbirth"
+            ngbDatepicker
+            #d2="ngbDatepicker"
+          />
+        </div>
+
+        <!-- <div class="form-group">
           <label class="control-label">Geboortedatum</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -52,7 +70,7 @@
               #d="ngbDatepicker"
             />
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <label class="control-label">Adres</label>

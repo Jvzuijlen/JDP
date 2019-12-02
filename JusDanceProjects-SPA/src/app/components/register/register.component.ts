@@ -12,11 +12,13 @@ import { UserActions } from '@redux/actions/user.action';
 import { IAppState } from '@redux/store';
 import { NgRedux } from '@angular-redux/store';
 import { Loadable } from '@redux/helper/loadable';
+import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}]
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -53,18 +55,23 @@ export class RegisterComponent implements OnInit {
   onRegisterSubmit() {
     this.registerForm.markAllAsTouched();
 
+    console.log(this.registerForm.value);
+
     console.log('onRegisterSubmit()');
     if (this.registerForm.valid) {
-      const user = this.registerForm.value as User;
+      // const user = this.registerForm.value as User;
 
-      user.dateofbirth = new Date(
-        this.registerForm.controls.dateofbirth.value.year,
-        this.registerForm.controls.dateofbirth.value.month - 1,
-        this.registerForm.controls.dateofbirth.value.day
-      );
+      // console.log(this.registerForm.value);
 
-      console.log(user);
-      this.userActions.register(user);
+      // user.dateofbirth = new Date(
+      //   this.registerForm.controls.dateofbirth.value.year,
+      //   this.registerForm.controls.dateofbirth.value.month - 1,
+      //   this.registerForm.controls.dateofbirth.value.day
+      // );
+
+      // console.log(user);
+
+      this.userActions.register(this.registerForm.value);
     }
   }
 
