@@ -18,6 +18,7 @@ namespace JusDanceProjects.API.DTOs
         [Required]
         public string LastName { get; set; }
 
+        [Required]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
@@ -25,5 +26,15 @@ namespace JusDanceProjects.API.DTOs
 
         [Required]
         public string PhoneNumber { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime LastActive { get; set; }
+
+        public UserForRegisterDTO()
+        {
+            Created = DateTime.Now;
+            LastActive = DateTime.Now;
+        }
     }
 }

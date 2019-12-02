@@ -40,18 +40,11 @@ namespace JusDanceProjects.API.Controllers
 
             var userToCreate = _mapper.Map<User>(userForRegisterDTO);
 
-            userToCreate.Created = DateTime.Now;
-            userToCreate.LastActive = DateTime.Now;
-            
-            // var userToCreate = new User
-            // {
-            //     Email = userForRegisterDTO.Email,
-            //     FirstName = userForRegisterDTO.FirstName
-            // };
-
             var createdUser = await _repo.Register(userToCreate, userForRegisterDTO.Password);
 
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDetailDTO>(createdUser);
+
+            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id }, userToReturn);
         }
 
         [HttpPost("login")]
