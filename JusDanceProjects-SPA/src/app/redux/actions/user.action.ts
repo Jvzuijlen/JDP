@@ -89,27 +89,24 @@ export class UserActions {
 
       this.authService.login(user).subscribe(
         (response: any) => {
-          // tslint:disable-next-line: no-shadowed-variable
-          const user = response;
 
-          if (user) {
+          if (response) {
             this.alertService.success('Login Succesfull!');
 
-            localStorage.setItem('token', user.token);
+            localStorage.setItem('token', response.token);
 
-            const decodedToken: DecodedToken = this.jwtHelper.decodeToken(user.token);
+            const decodedToken: DecodedToken = this.jwtHelper.decodeToken(response.token);
 
             this.ngRedux.dispatch({
               type: UserActionsTypes.LOGIN_USER_SUCCES,
               payload: {
                 loggedIn: true,
-                decodeToken: decodedToken
+                decodeToken: decodedToken,
+                loggedInUser: response.user
               }
             });
 
             this.router.navigate(['/home']);
-
-            this.getUser(decodedToken.nameid);
 
           } else {
             console.log('user != null');
@@ -134,7 +131,8 @@ export class UserActions {
         type: UserActionsTypes.LOGIN_USER_SUCCES,
         payload: {
           loggedIn: true,
-          decodeToken: decodedToken
+          decodeToken: decodedToken,
+          loggedInUser: null
         }
       });
 

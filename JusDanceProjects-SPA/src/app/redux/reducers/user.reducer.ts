@@ -32,9 +32,17 @@ export function userReducer(
     case UserActionsTypes.LOGIN_USER:
       return onLoadableLoad(state);
     case UserActionsTypes.LOGIN_USER_SUCCES:
+      if (action.payload.loggedInUser == null)
+      {
+        return tassign(onLoadableSuccess(state), {
+          loggedIn: action.payload.loggedIn,
+          decodeToken: action.payload.decodeToken
+        });
+      }
       return tassign(onLoadableSuccess(state), {
         loggedIn: action.payload.loggedIn,
-        decodeToken: action.payload.decodeToken
+        decodeToken: action.payload.decodeToken,
+        loggedInUser: action.payload.loggedInUser
       });
     case UserActionsTypes.LOGIN_USER_ERROR:
       return onLoadableError(state, action.payload);

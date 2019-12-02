@@ -7,6 +7,8 @@ using AutoMapper;
 using JusDanceProjects.API.Data;
 using JusDanceProjects.API.DTOs;
 using JusDanceProjects.API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -15,15 +17,19 @@ namespace JusDanceProjects.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
+        public AuthController(IConfiguration config, IMapper mapper,
+        UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _repo = repo;
+            _userManager = userManager;
+            _signInManager = signInManager;
             _config = config;
             _mapper = mapper;
         }
@@ -33,32 +39,59 @@ namespace JusDanceProjects.API.Controllers
         {
             // validate request
 
-            userForRegisterDTO.Email = userForRegisterDTO.Email.ToLower();
+            // userForRegisterDTO.Email = userForRegisterDTO.Email.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDTO.Email))
-                return BadRequest("Username already exists");
+            // if (await _repo.UserExists(userForRegisterDTO.Email))
+            //     return BadRequest("Username already exists");
 
             var userToCreate = _mapper.Map<User>(userForRegisterDTO);
+            userToCreate.UserName = userToCreate.Email;
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDTO.Password);
+            var result = await _userManager.CreateAsync(userToCreate, userForRegisterDTO.Password);
 
-            var userToReturn = _mapper.Map<UserForDetailDTO>(createdUser);
+            // var createdUser = await _repo.Register(userToCreate, userForRegisterDTO.Password);
 
-            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id }, userToReturn);
+            var userToReturn = _mapper.Map<UserForDetailDTO>(userToCreate);
+
+            if (result.Succeeded)
+            {
+                return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
+            }
+
+            return BadRequest(result.Errors);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDTO userForLoginDTO)
         {
-            var userFromRepo = await _repo.Login(userForLoginDTO.Email.ToLower(), userForLoginDTO.Password);
+            var user = await _userManager.FindByEmailAsync(userForLoginDTO.Email);
 
-            if (userFromRepo == null)
-                return Unauthorized();
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userForLoginDTO.Password, false);
 
-            var claims = new[]
+            if (result.Succeeded)
             {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.FirstName)
+                var appUser = _mapper.Map<UserForDetailDTO>(user);
+
+                return Ok(new
+                {
+                    token = GenerateJwtToken(user),
+                    user = appUser
+                });
+            }
+            // var userFromRepo = await _repo.Login(userForLoginDTO.Email.ToLower(), userForLoginDTO.Password);
+
+            // if (userFromRepo == null)
+            //     return Unauthorized();
+
+            return Unauthorized();
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var claims = new[]
+{
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.FirstName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
@@ -77,10 +110,7 @@ namespace JusDanceProjects.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new
-            {
-                token = tokenHandler.WriteToken(token)
-            });
+            return tokenHandler.WriteToken(token);
         }
     }
 }

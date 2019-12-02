@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JusDanceProjects.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
