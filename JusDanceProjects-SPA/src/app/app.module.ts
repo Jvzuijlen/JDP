@@ -8,7 +8,8 @@ import {
   MatListModule,
   MatFormFieldModule,
   MatMenuModule,
-  MatDividerModule
+  MatDividerModule,
+  MatCardModule
 } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgBootstrapFormValidationModule, CUSTOM_ERROR_MESSAGES } from 'ng-bootstrap-form-validation';
@@ -38,6 +39,9 @@ import { LoginComponent } from '@components/login/login.component';
 import { AlertModule } from '@services/_alert';
 import { FooterComponent } from '@components/footer/footer.component';
 import { AccountComponent } from '@components/account/account.component';
+import { DanceOffersComponent } from '@components/dance-offers/dance-offers.component';
+import { createDefaultIUserState } from '@redux/reducers/user.reducer';
+import { createDefaultIDanceState } from '@redux/reducers/dance.reducer';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,7 @@ import { AccountComponent } from '@components/account/account.component';
     RegisterComponent,
     FooterComponent,
     AccountComponent,
+    DanceOffersComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,15 +68,16 @@ import { AccountComponent } from '@components/account/account.component';
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatMenuModule,
+    MatCardModule,
     BrowserAnimationsModule,
     NgbModule,
     NgReduxModule,
     NgReduxRouterModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AlertModule,
-    MatDividerModule
   ],
   providers: [ErrorInterceptorProvider, {
     provide: CUSTOM_ERROR_MESSAGES,

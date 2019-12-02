@@ -63,6 +63,7 @@ export class RegisterComponent implements OnInit {
         this.registerForm.controls.dateofbirth.value.day
       );
 
+      console.log(user);
       this.userActions.register(user);
     }
   }
@@ -77,5 +78,5 @@ export class RegisterComponent implements OnInit {
     return email.valid && password.valid && !accept.value
       ? { 'All required fields need to be filled in': true }
       : null;
-  };
+  }
 }

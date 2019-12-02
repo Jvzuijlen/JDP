@@ -30,36 +30,29 @@ export class UserActions {
   ) {}
 
   register(user: User) {
-    console.log('REGISTER_USER');
-
     this.alertService.clear();
 
-    // Dispatch REGISTER_USER action
     this.ngRedux.dispatch({
       type: UserActionsTypes.REGISTER_USER
     });
 
     this.authService.register(user).subscribe(
       response => {
-        console.log('REGISTER_USER_SUCCES');
-        console.log(response);
-
         if (response == null) {
           this.alertService.success('Register Succesfull!');
 
-          // Dispatch REGISTER_USER_SUCCES action
           this.ngRedux.dispatch({
             type: UserActionsTypes.REGISTER_USER_SUCCES
           });
+        } else {
+          console.log('response == null');
         }
       },
       error => {
-        console.log('REGISTER_USER_ERROR');
         console.log(error);
 
         this.alertService.warn(error);
 
-        // Dispatch REGISTER_USER_ERROR action
         this.ngRedux.dispatch({
           type: UserActionsTypes.REGISTER_USER_ERROR,
           payload: error
@@ -69,8 +62,6 @@ export class UserActions {
   }
 
   login(user: User, token: string) {
-    console.log('LOGIN_USER');
-
     this.alertService.clear();
 
     if (token == null) {
@@ -84,14 +75,11 @@ export class UserActions {
           // tslint:disable-next-line: no-shadowed-variable
           const user = response;
 
-          console.log('LOGIN_USER_SUCCES');
-
           if (user) {
             this.alertService.success('Login Succesfull!');
 
             localStorage.setItem('token', user.token);
 
-            // Dispatch LOGIN_USER_SUCCES action
             this.ngRedux.dispatch({
               type: UserActionsTypes.LOGIN_USER_SUCCES,
               payload: {
@@ -101,15 +89,15 @@ export class UserActions {
             });
 
             this.router.navigate(['/home']);
+          } else {
+            console.log('user != null');
           }
         },
         error => {
-          console.log('LOGIN_USER_ERROR');
           console.log(error);
 
           this.alertService.error(error);
 
-          // Dispatch LOGIN_USER_ERROR action
           this.ngRedux.dispatch({
             type: UserActionsTypes.LOGIN_USER_ERROR,
             payload: error
@@ -117,7 +105,6 @@ export class UserActions {
         }
       );
     } else {
-      // Dispatch LOGIN_USER_SUCCES action
       this.ngRedux.dispatch({
         type: UserActionsTypes.LOGIN_USER_SUCCES,
         payload: {
@@ -129,11 +116,8 @@ export class UserActions {
   }
 
   logout() {
-    console.log('LOGOUT_USER');
-
     this.authService.logout();
 
-    // Dispatch LOGIN_USER_SUCCES action
     this.ngRedux.dispatch({
       type: UserActionsTypes.LOGOUT_USER,
       payload: {
@@ -144,9 +128,6 @@ export class UserActions {
   }
 
   resetLoadable() {
-    console.log('LOADABLE_RESET');
-
-    // Dispatch LOADABLE_RESET action
     this.ngRedux.dispatch({
       type: UserActionsTypes.LOADABLE_RESET
     });

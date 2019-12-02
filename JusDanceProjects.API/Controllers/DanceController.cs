@@ -15,7 +15,7 @@ namespace JusDanceProjects.API.Controllers
             _repo = repo;
         }
 
-        [HttpGet]
+        [HttpGet("coursetypes")]
         public async Task<IActionResult> GetUsers()
         {
             var dancetypes = await _repo.GetDanceCourseTypes();

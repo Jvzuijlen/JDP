@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col my-4 mx-5">
+      <h3>Lessen:</h3>
+      <p>
+        Hieronder vind je een omschrijving van het lesaanbod van Jus Dance
+        Projects. Bij Jus Dance Projects werken we met lesblokken van zes weken.
+        Ieder blok verschilt het rooster, en kom je een combinatie van
+        onderstaande lessen tegen. Let op: Niet iedere les staat ieder blok op
+        het rooster! Je hoeft geen ervaring te hebben om in te stromen in één
+        van deze lessen.
+      </p>
+      <div *ngFor="let course of courseTypes">
+        <div *ngIf="course.visible">
+          <h5>{{ course.title }}</h5>
+          <mat-divider></mat-divider>
+          <p>{{ course.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
