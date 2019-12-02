@@ -12,6 +12,7 @@ import {
 export function createDefaultIUserState(): IUserState {
   return {
     ...createDefaultLoadable(),
+    loggedInUser: undefined,
     loggedIn: false,
     decodeToken: null
   };
@@ -31,11 +32,24 @@ export function userReducer(
     case UserActionsTypes.LOGIN_USER:
       return onLoadableLoad(state);
     case UserActionsTypes.LOGIN_USER_SUCCES:
-      return tassign(onLoadableSuccess(state), {loggedIn: action.payload.loggedIn, decodeToken: action.payload.decodeToken});
+      return tassign(onLoadableSuccess(state), {
+        loggedIn: action.payload.loggedIn,
+        decodeToken: action.payload.decodeToken
+      });
     case UserActionsTypes.LOGIN_USER_ERROR:
       return onLoadableError(state, action.payload);
     case UserActionsTypes.LOGOUT_USER:
-      return tassign(state, {loggedIn: action.payload.loggedIn, decodeToken: action.payload.decodeToken});
+      return tassign(state, {
+        loggedIn: action.payload.loggedIn,
+        decodeToken: action.payload.decodeToken,
+        loggedInUser: action.payload.loggedInUser
+      });
+    case UserActionsTypes.GET_USER:
+      return tassign(state, onLoadableLoad(state));
+    case UserActionsTypes.GET_USER_SUCCES:
+      return tassign(onLoadableSuccess(state), {loggedInUser: action.payload});
+    case UserActionsTypes.GET_USER_ERROR:
+      return tassign(state, onLoadableError(state, action.payload));
     case UserActionsTypes.LOADABLE_RESET:
       return onLoadableReset(state);
     default:

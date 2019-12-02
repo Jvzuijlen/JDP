@@ -1,17 +1,10 @@
-<mat-sidenav-container class="side-nav-container" autosize>
-    <mat-sidenav mode="side" opened class="sidenav">
-        <mat-action-list>
-            <button mat-list-item (click)="index = 0"> tab 1 </button>
-            <button mat-list-item (click)="index = 1"> tab 2 </button>
-          </mat-action-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <div style="height: 200px;">
-        Test
-        <div>
-          Test
-        </div>
-      </div>
-        <!-- <app-tab-content [(index)]=index></app-tab-content> -->
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+<div class="container">
+  <div class="row">
+    <div>
+      Acount: {{decodeToken.unique_name}}
+    </div>
+    <div *ngIf="user" class="col-lg-2 col-md-3 col-sm-6">
+        Email:{{user.email}}
+    </div>
+  </div>
+</div>

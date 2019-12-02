@@ -27,8 +27,8 @@ export class DanceActions {
       type: DanceActionsTypes.GET_COURSE_TYPES
     });
 
-    this.danceService.getDanceCourseType().subscribe(
-        (response: any[]) => {
+    this.danceService.getDanceCourseTypes().subscribe(
+        (response: DanceCourseType[]) => {
 
         if (response != null) {
           this.ngRedux.dispatch({

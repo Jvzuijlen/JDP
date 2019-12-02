@@ -4,6 +4,7 @@ import { userReducer } from './reducers/user.reducer';
 import { Loadable } from './helper/loadable';
 import { DanceCourseType } from '@models/dance-course-type';
 import { danceReducer } from './reducers/dance.reducer';
+import { User } from '@models/user';
 
 export interface DecodedToken {
   nameid: string;
@@ -14,6 +15,7 @@ export interface DecodedToken {
 }
 
 export interface IUserState extends Loadable {
+  loggedInUser: User;
   loggedIn: boolean;
   decodeToken: DecodedToken;
 }

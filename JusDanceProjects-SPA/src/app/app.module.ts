@@ -14,7 +14,7 @@ import {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgBootstrapFormValidationModule, CUSTOM_ERROR_MESSAGES } from 'ng-bootstrap-form-validation';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { ValueComponent } from './components/value/value.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -40,8 +40,12 @@ import { AlertModule } from '@services/_alert';
 import { FooterComponent } from '@components/footer/footer.component';
 import { AccountComponent } from '@components/account/account.component';
 import { DanceOffersComponent } from '@components/dance-offers/dance-offers.component';
-import { createDefaultIUserState } from '@redux/reducers/user.reducer';
-import { createDefaultIDanceState } from '@redux/reducers/dance.reducer';
+import { environment } from 'environments/environment';
+import { AuthGuard } from './guards/auth.guard';
+
+export function getToken() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -78,12 +82,19 @@ import { createDefaultIDanceState } from '@redux/reducers/dance.reducer';
     NgReduxRouterModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AlertModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        whitelistedDomains: [environment.baseUrl],
+        blacklistedRoutes: [environment.baseUrl + '/api/auth']
+      }
+    }),
   ],
   providers: [ErrorInterceptorProvider, {
     provide: CUSTOM_ERROR_MESSAGES,
     useValue: CUSTOM_ERRORS,
     multi: true
-  }],
+  }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
