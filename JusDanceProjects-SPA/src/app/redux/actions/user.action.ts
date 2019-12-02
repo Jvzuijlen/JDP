@@ -38,7 +38,7 @@ export class UserActions {
 
     this.authService.register(user).subscribe(
       response => {
-        if (response == null) {
+        if (response != null) {
           this.alertService.alert(
             new Alert({
               message: 'Succesfully registered! You can login now:',
@@ -52,8 +52,9 @@ export class UserActions {
           });
 
           this.router.navigate(['/login']);
+
         } else {
-          console.log('response == null');
+          console.log('response !== null');
         }
       },
       error => {
