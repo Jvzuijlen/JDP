@@ -24,5 +24,11 @@ namespace JusDanceProjects.API.Models
         public virtual Photo ProfilePicture { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
+
+        public User()
+        {
+            Created = DateTime.Now;
+            LastActive = DateTime.Now;
+        }
     }
 }

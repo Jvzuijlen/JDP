@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using JusDanceProjects.API.Data;
 using JusDanceProjects.API.Models;
 using JusDanceProjects.MVC.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JusDanceProjects.MVC.Controllers
 {
+    [Authorize]
     public class DanceCourseTypesController : Controller
     {
         private readonly IDanceRepository _repo;

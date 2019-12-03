@@ -27,7 +27,8 @@ namespace JusDanceProjects.MVC.Areas.Identity
 
                     x.Password.RequireDigit = false;
                     x.Password.RequireNonAlphanumeric = false;
-                    x.Password.RequiredLength = 8;
+                    x.Password.RequiredLength = 4;
+                    x.Password.RequireUppercase = false;
 
                 }).AddEntityFrameworkStores<DataContext>();
 
