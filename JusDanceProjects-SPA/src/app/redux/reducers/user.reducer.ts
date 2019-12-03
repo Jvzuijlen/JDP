@@ -13,7 +13,7 @@ import { User } from '@models/user';
 export function createDefaultIUserState(): IUserState {
   return {
     ...createDefaultLoadable(),
-    loggedInUser: undefined,
+    loggedInUser: null,
     loggedIn: false,
     decodeToken: null
   };
@@ -50,7 +50,7 @@ export function userReducer(
       return tassign(state, {
         loggedIn: action.payload.loggedIn,
         decodeToken: action.payload.decodeToken,
-        loggedInUser: action.payload.loggedInUser as User
+        loggedInUser: null
       });
     case UserActionsTypes.GET_USER:
       return tassign(state, onLoadableLoad(state));

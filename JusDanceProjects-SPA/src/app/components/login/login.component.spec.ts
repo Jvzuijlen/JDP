@@ -17,7 +17,8 @@ import {
   MatButtonModule,
   MatListModule,
   MatFormFieldModule,
-  MatMenuModule
+  MatMenuModule,
+  MatCardModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from 'app/routes';
@@ -36,6 +37,14 @@ import { NgReduxRouterModule } from '@angular-redux/router';
 import { AlertModule } from '@services/_alert';
 import { ErrorInterceptorProvider } from '@services/error.interceptor';
 import { CUSTOM_ERRORS } from 'app/shared/custom-errors';
+import { AccountComponent } from '@components/account/account.component';
+import { DanceOffersComponent } from '@components/dance-offers/dance-offers.component';
+import { TimeAgoPipe } from 'app/shared/time-ago.pipe';
+import { FilterCourseTypesPipe } from 'app/shared/filter-course-types.pipe';
+import { JwtModule } from '@auth0/angular-jwt';
+import { getToken } from 'app/app.module';
+import { environment } from 'environments/environment';
+import { AuthGuard } from 'app/guards/auth.guard';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -50,7 +59,11 @@ describe('LoginComponent', () => {
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        FooterComponent
+        FooterComponent,
+        AccountComponent,
+        DanceOffersComponent,
+        TimeAgoPipe,
+        FilterCourseTypesPipe
       ],
       imports: [
         BrowserModule,
@@ -65,24 +78,29 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatButtonModule,
         MatListModule,
+        MatDividerModule,
         MatFormFieldModule,
         MatMenuModule,
+        MatCardModule,
         BrowserAnimationsModule,
         NgbModule,
         NgReduxModule,
         NgReduxRouterModule.forRoot(),
         RouterModule.forRoot(appRoutes),
         AlertModule,
-        MatDividerModule
+        JwtModule.forRoot({
+          config: {
+            tokenGetter: getToken,
+            whitelistedDomains: [environment.baseUrl],
+            blacklistedRoutes: [environment.baseUrl + '/api/auth']
+          }
+        }),
       ],
-      providers: [
-        ErrorInterceptorProvider,
-        {
-          provide: CUSTOM_ERROR_MESSAGES,
-          useValue: CUSTOM_ERRORS,
-          multi: true
-        }
-      ]
+      providers: [ErrorInterceptorProvider, {
+        provide: CUSTOM_ERROR_MESSAGES,
+        useValue: CUSTOM_ERRORS,
+        multi: true
+      }, AuthGuard]
     }).compileComponents();
   }));
 
