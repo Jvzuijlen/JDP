@@ -37,19 +37,10 @@ namespace JusDanceProjects.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDTO)
         {
-            // validate request
-
-            // userForRegisterDTO.Email = userForRegisterDTO.Email.ToLower();
-
-            // if (await _repo.UserExists(userForRegisterDTO.Email))
-            //     return BadRequest("Username already exists");
-
             var userToCreate = _mapper.Map<User>(userForRegisterDTO);
             userToCreate.UserName = userToCreate.Email;
 
             var result = await _userManager.CreateAsync(userToCreate, userForRegisterDTO.Password);
-
-            // var createdUser = await _repo.Register(userToCreate, userForRegisterDTO.Password);
 
             var userToReturn = _mapper.Map<UserForDetailDTO>(userToCreate);
 
@@ -70,6 +61,9 @@ namespace JusDanceProjects.API.Controllers
 
             if (result.Succeeded)
             {
+                user.LastActive = DateTime.Now;
+                await _userManager.UpdateAsync(user);
+
                 var appUser = _mapper.Map<UserForDetailDTO>(user);
 
                 return Ok(new
@@ -78,11 +72,6 @@ namespace JusDanceProjects.API.Controllers
                     user = appUser
                 });
             }
-            // var userFromRepo = await _repo.Login(userForLoginDTO.Email.ToLower(), userForLoginDTO.Password);
-
-            // if (userFromRepo == null)
-            //     return Unauthorized();
-
             return Unauthorized();
         }
 
