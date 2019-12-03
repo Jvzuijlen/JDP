@@ -6,9 +6,10 @@ namespace JusDanceProjects.API.Data
 {
     public interface IUserRepository
     {
-        void Add<T>(T entity) where T: class;
-        void Delete<T>(T entity) where T: class;
-        Task<bool> SaveAll();
+        void SaveUser(User user);
+        Task DeleteUser(int id);
+        List<User> FindUser(string search);
+
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
     }

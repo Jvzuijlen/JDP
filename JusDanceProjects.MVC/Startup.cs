@@ -30,6 +30,7 @@ namespace JusDanceProjects.MVC
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IMiscRepository, MiscRepository>();
             services.AddTransient<IDanceRepository, DanceRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddControllersWithViews();
         }
 

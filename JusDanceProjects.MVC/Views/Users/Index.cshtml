@@ -1,0 +1,24 @@
+@model List<JusDanceProjects.API.Models.User>
+
+@{
+}
+
+<form asp-controller="Users" asp-action="Index">
+    <h1>Users:</h1>
+</form>
+
+<div class="container">
+    <div class="row">
+    @foreach(var item in Model)
+    {
+      <div class="card col-12 col-sm-6 col-lg-3 col-xl-2">
+        <div class="card-body">
+            <h5 class="card-title">@item.FirstName @item.LastName</h5>
+            <p class="card-text">@item.Email</p>
+            <a asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
+            <a asp-controller="Users" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+    }
+    </div>
+</div>
