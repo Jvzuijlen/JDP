@@ -6,11 +6,17 @@ namespace JusDanceProjects.API.Data
 {
     public interface IDanceRepository
     {
-        void SaveDanceCourseType(DanceCourseType danceCourseType);
-        void DeleteDanceCourseType(int id);
-        List<DanceCourseType> FindDanceCourseType(string search);
-        
+        //DanceCourseType
+        Task SaveDanceCourseType(DanceCourseType danceCourseType);
+        Task DeleteDanceCourseType(int id);
+        Task<List<DanceCourseType>> FindDanceCourseType(string search);
         Task<IEnumerable<DanceCourseType>> GetDanceCourseTypes();
-        DanceCourseType GetDanceCourseType(int id);
+        Task<DanceCourseType> GetDanceCourseType(int id);
+
+        //DanceCourse
+        Task SaveDanceCourse(DanceCourse danceCourse);
+        Task DeleteDanceCourse(int id);
+        Task<IEnumerable<DanceCourse>> GetDanceCourses();
+        Task<DanceCourse> GetDanceCourse(int id);
     }
 }

@@ -29,7 +29,7 @@ namespace JusDanceProjects.MVC.Controllers
             List<DanceCourseTypeVM> courseList = new List<DanceCourseTypeVM>();
             foreach(DanceCourseType course in courses)
             {
-                courseList.Add(ViewModelCreator.IndexAnimalCatVm(course));
+                courseList.Add(ViewModelCreator.IndexDanceCourseTypeVM(course));
             }
 
             return View(courseList);
@@ -120,7 +120,7 @@ namespace JusDanceProjects.MVC.Controllers
             {
                 try
                 {
-                    _repo.SaveDanceCourseType(danceCourseType);
+                    await _repo.SaveDanceCourseType(danceCourseType);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

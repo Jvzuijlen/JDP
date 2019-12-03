@@ -16,9 +16,9 @@ namespace JusDanceProjects.API.Data
             _context = context;
         }
 
-        public void DeleteDanceCourseType(int id)
+        public async Task DeleteDanceCourseType(int id)
         {
-            var course = this.GetDanceCourseType(id);
+            var course = await this.GetDanceCourseType(id);
 
             // Check if Phot isnt null
             if (course.Photo != null)
@@ -31,7 +31,7 @@ namespace JusDanceProjects.API.Data
             _context.SaveChanges();
         }
 
-        public void SaveDanceCourseType(DanceCourseType danceCourseType)
+        public async Task SaveDanceCourseType(DanceCourseType danceCourseType)
         {
             if (danceCourseType.Id == 0)
             {
@@ -42,10 +42,10 @@ namespace JusDanceProjects.API.Data
                 _context.DanceCourseTypes.Update(danceCourseType);
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public List<DanceCourseType> FindDanceCourseType(string search)
+        public async Task<List<DanceCourseType>> FindDanceCourseType(string search)
         {
             var danceCourseTypes = from d in _context.DanceCourseTypes.Include(p => p.Photo) select d;
 
@@ -54,12 +54,12 @@ namespace JusDanceProjects.API.Data
                 danceCourseTypes = danceCourseTypes.Include(p => p.Photo).Where(type => type.Title.Contains(search));
             }
 
-            return danceCourseTypes.Include(p => p.Photo).ToList();
+            return await danceCourseTypes.Include(p => p.Photo).ToListAsync();
         }
 
-        public DanceCourseType GetDanceCourseType(int id)
+        public async Task<DanceCourseType> GetDanceCourseType(int id)
         {
-            var danceCourseType = _context.DanceCourseTypes.Include(p => p.Photo).FirstOrDefault(c => c.Id == id);
+            var danceCourseType = await _context.DanceCourseTypes.Include(p => p.Photo).FirstOrDefaultAsync(c => c.Id == id);
             return danceCourseType;
         }
 
@@ -67,6 +67,40 @@ namespace JusDanceProjects.API.Data
         {
             var danceCourseTypes = await _context.DanceCourseTypes.Include(p => p.Photo).ToListAsync();
             return danceCourseTypes;
+        }
+
+        public async Task DeleteDanceCourse(int id)
+        {
+            var course = await this.GetDanceCourse(id);
+
+            _context.DanceCourses.Remove(course);
+            _context.SaveChanges();
+        }
+
+        public async Task SaveDanceCourse(DanceCourse danceCourse)
+        {
+            if (danceCourse.Id == 0)
+            {
+                _context.DanceCourses.Add(danceCourse);
+            }
+            else
+            {
+                _context.DanceCourses.Update(danceCourse);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<DanceCourse> GetDanceCourse(int id)
+        {
+            var danceCourse = await _context.DanceCourses.Include(type => type.DanceCourseType).FirstOrDefaultAsync(c => c.Id == id);
+            return danceCourse;
+        }
+
+        public async Task<IEnumerable<DanceCourse>> GetDanceCourses()
+        {
+            var danceCourses = await _context.DanceCourses.Include(type => type.DanceCourseType).ToListAsync();
+            return danceCourses;
         }
     }
 }
