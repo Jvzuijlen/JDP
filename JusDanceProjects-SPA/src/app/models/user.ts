@@ -4,12 +4,12 @@ export interface User {
     id: number;
     email: string;
     password: string;
-    firstname: string;
-    lastname: string;
-    dateofbirth: Date;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: Date;
     address: string;
     created: Date;
     lastActive: Date;
-    profilepicture?: Photo;
+    profilePicture?: Photo;
     age?: number;
 }

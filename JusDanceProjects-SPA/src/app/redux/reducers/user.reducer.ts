@@ -8,6 +8,7 @@ import {
   onLoadableError,
   onLoadableReset
 } from '@redux/helper/loadable';
+import { User } from '@models/user';
 
 export function createDefaultIUserState(): IUserState {
   return {
@@ -32,8 +33,7 @@ export function userReducer(
     case UserActionsTypes.LOGIN_USER:
       return onLoadableLoad(state);
     case UserActionsTypes.LOGIN_USER_SUCCES:
-      if (action.payload.loggedInUser == null)
-      {
+      if (action.payload.loggedInUser == null) {
         return tassign(onLoadableSuccess(state), {
           loggedIn: action.payload.loggedIn,
           decodeToken: action.payload.decodeToken
@@ -42,7 +42,7 @@ export function userReducer(
       return tassign(onLoadableSuccess(state), {
         loggedIn: action.payload.loggedIn,
         decodeToken: action.payload.decodeToken,
-        loggedInUser: action.payload.loggedInUser
+        loggedInUser: action.payload.loggedInUser as User
       });
     case UserActionsTypes.LOGIN_USER_ERROR:
       return onLoadableError(state, action.payload);
@@ -50,12 +50,14 @@ export function userReducer(
       return tassign(state, {
         loggedIn: action.payload.loggedIn,
         decodeToken: action.payload.decodeToken,
-        loggedInUser: action.payload.loggedInUser
+        loggedInUser: action.payload.loggedInUser as User
       });
     case UserActionsTypes.GET_USER:
       return tassign(state, onLoadableLoad(state));
     case UserActionsTypes.GET_USER_SUCCES:
-      return tassign(onLoadableSuccess(state), {loggedInUser: action.payload});
+      return tassign(onLoadableSuccess(state), {
+        loggedInUser: action.payload as User
+      });
     case UserActionsTypes.GET_USER_ERROR:
       return tassign(state, onLoadableError(state, action.payload));
     case UserActionsTypes.LOADABLE_RESET:

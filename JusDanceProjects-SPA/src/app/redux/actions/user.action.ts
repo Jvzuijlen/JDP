@@ -96,13 +96,14 @@ export class UserActions {
             localStorage.setItem('token', response.token);
 
             const decodedToken: DecodedToken = this.jwtHelper.decodeToken(response.token);
+            const user: User = response.user as User;
 
             this.ngRedux.dispatch({
               type: UserActionsTypes.LOGIN_USER_SUCCES,
               payload: {
                 loggedIn: true,
                 decodeToken: decodedToken,
-                loggedInUser: response.user
+                loggedInUser: user
               }
             });
 
@@ -163,9 +164,12 @@ export class UserActions {
     this.userService.getUser(id).subscribe(
       (response: User) => {
         if (response != null) {
+
+          const user: User = response as User;
+
           this.ngRedux.dispatch({
             type: UserActionsTypes.GET_USER_SUCCES,
-            payload: response
+            payload: user
           });
 
         } else {
