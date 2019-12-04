@@ -1,49 +1,40 @@
 @model JusDanceProjects.API.Models.DanceCourse
 
 @{
+    ViewBag.Title = "Create Dance Course";
 }
 
-<div class="container">
-    <div class="row mb-3">
-        <form asp-controller="DanceCourses" asp-action="Index">
-            <h1>DanceCourses:</h1>
-            <a asp-controller="DanceCourses" asp-action="Create" class="btn btn-primary">Create new</a>
-        </form>
-    </div>
+<h1>DanceCourses:</h1>
 
-    <div class="row">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    </div>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="container">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="row">
-        <div class="form-group">
-            <label asp-for="Location" class="control-label"></label>
-            <input asp-for="Location" class="form-control" />
-            <span asp-validation-for="Location" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DanceCourseTypeId" class="control-label"></label>
+                <select asp-for="DanceCourseTypeId" class ="form-control" asp-items="ViewBag.DanceCourseTypeId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TeacherId" class="control-label"></label>
+                <select asp-for="TeacherId" class ="form-control" asp-items="ViewBag.TeacherId"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+            <a asp-action="Index">Back to List</a>
         </div>
     </div>
-
-    <div class="row">
-        <div class="form-group">
-            <label asp-for="DanceCourseTypeId" class="control-label"></label>
-            <select asp-for="DanceCourseTypeId" class ="form-control" asp-items="ViewBag.DanceCourseTypeId"></select>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group">
-            <label asp-for="TeacherId" class="control-label"></label>
-            <select asp-for="TeacherId" class ="form-control" asp-items="ViewBag.TeacherId"></select>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </div>
-
-    <div class="row">
-        <a asp-action="Index">Back to List</a>
-    </div>
-</div>
+}

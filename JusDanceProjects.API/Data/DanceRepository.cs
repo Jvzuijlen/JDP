@@ -93,13 +93,13 @@ namespace JusDanceProjects.API.Data
 
         public async Task<DanceCourse> GetDanceCourse(int id)
         {
-            var danceCourse = await _context.DanceCourses.Include(type => type.DanceCourseType).FirstOrDefaultAsync(c => c.Id == id);
+            var danceCourse = await _context.DanceCourses.Include(type => type.DanceCourseType).Include(t => t.Teacher).FirstOrDefaultAsync(c => c.Id == id);
             return danceCourse;
         }
 
         public async Task<IEnumerable<DanceCourse>> GetDanceCourses()
         {
-            var danceCourses = await _context.DanceCourses.Include(type => type.DanceCourseType).ToListAsync();
+            var danceCourses = await _context.DanceCourses.Include(type => type.DanceCourseType).Include(t => t.Teacher).ToListAsync();
             return danceCourses;
         }
     }

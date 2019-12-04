@@ -96,14 +96,14 @@ namespace JusDanceProjects.MVC.Controllers
         }
 
         // GET: Users/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = _repo.GetUser((int)id);
+            var user = await _repo.GetUser((int)id);
             if (user == null)
             {
                 return NotFound();

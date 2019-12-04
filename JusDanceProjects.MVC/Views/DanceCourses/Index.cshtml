@@ -16,8 +16,9 @@
     {
       <div class="card mb-3 mr-3 col-sm-12 .col-md-8 col-lg-6 col-xl-4">
         <div class="card-body">
-            <h5 class="card-title">@item.DanceCourseType.Title</h5>
-            <p class="card-text">@item.Location</p>
+            <h5 class="card-title">Course Type: @item.DanceCourseType.Title</h5>
+            <p class="card-text">Location: @item.Location</p>
+            <p class="card-text">Teacher: @item.Teacher.FirstName</p>
             <a asp-controller="DanceCourses" asp-action="Delete" asp-route-id="@item.Id" class="card-link">Delete</a>
           </div>
         </div>

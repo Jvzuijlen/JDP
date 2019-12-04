@@ -59,22 +59,23 @@ namespace JusDanceProjects.MVC.Controllers
             return View();
         }
 
-        // // POST: DanceCourses/Create
-        // // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Create([Bind("Id,Location,DanceCourseTypeId")] DanceCourse danceCourse)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         _context.Add(danceCourse);
-        //         await _context.SaveChangesAsync();
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     ViewData["DanceCourseTypeId"] = new SelectList(_context.DanceCourseTypes, "Id", "Id", danceCourse.DanceCourseTypeId);
-        //     return View(danceCourse);
-        // }
+        // POST: DanceCourses/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Location,DanceCourseTypeId,TeacherId")] DanceCourse danceCourse)
+        {
+            if (ModelState.IsValid)
+            {
+                await _danceRepository.SaveDanceCourse(danceCourse);
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewData["DanceCourseTypeId"] = new SelectList(await _danceRepository.GetDanceCourseTypes(), "Id", "Title");
+            ViewData["TeacherId"] = new SelectList(await _userRepository.GetUsers(), "Id", "FirstName");
+            return View(danceCourse);
+        }
 
         // // GET: DanceCourses/Edit/5
         // public async Task<IActionResult> Edit(int? id)
@@ -129,35 +130,32 @@ namespace JusDanceProjects.MVC.Controllers
         //     return View(danceCourse);
         // }
 
-        // // GET: DanceCourses/Delete/5
-        // public async Task<IActionResult> Delete(int? id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
+        // GET: DanceCourses/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //     var danceCourse = await _context.DanceCourses
-        //         .Include(d => d.DanceCourseType)
-        //         .FirstOrDefaultAsync(m => m.Id == id);
-        //     if (danceCourse == null)
-        //     {
-        //         return NotFound();
-        //     }
+            var danceCourse = await _danceRepository.GetDanceCourse((int)id);
 
-        //     return View(danceCourse);
-        // }
+            if (danceCourse == null)
+            {
+                return NotFound();
+            }
 
-        // // POST: DanceCourses/Delete/5
-        // [HttpPost, ActionName("Delete")]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> DeleteConfirmed(int id)
-        // {
-        //     var danceCourse = await _context.DanceCourses.FindAsync(id);
-        //     _context.DanceCourses.Remove(danceCourse);
-        //     await _context.SaveChangesAsync();
-        //     return RedirectToAction(nameof(Index));
-        // }
+            return View(danceCourse);
+        }
+
+        // POST: DanceCourses/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _danceRepository.DeleteDanceCourse(id);
+            return RedirectToAction(nameof(Index));
+        }
 
         // private bool DanceCourseExists(int id)
         // {
