@@ -11,12 +11,12 @@ namespace JusDanceProjects.API.Models
         public int Id { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Time)]
         [Display(Name = "Lesson Start Time")]
         public DateTime StartTime {get; set;}
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Time)]
         [Display(Name = "Lesson End Time")]
         public DateTime EndTime { get; set; }
 
@@ -25,7 +25,7 @@ namespace JusDanceProjects.API.Models
         [ForeignKey("DanceCourseId")]
         public virtual DanceCourse DanceCourse { get; set; }
         
-        public virtual ICollection<User> AttendingUsers { get; set; }
-        public virtual ICollection<User> AttendedUsers { get; set; }
+        // public virtual ICollection<User> AttendingUsers { get; set; }
+        // public virtual ICollection<User> AttendedUsers { get; set; }
     }
 }

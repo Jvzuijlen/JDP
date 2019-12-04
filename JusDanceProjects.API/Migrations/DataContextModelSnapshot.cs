@@ -25,10 +25,23 @@ namespace JusDanceProjects.API.Migrations
                     b.Property<int>("DanceCourseTypeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Location")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MaxAttendees")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Visible")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -63,6 +76,28 @@ namespace JusDanceProjects.API.Migrations
                     b.HasIndex("PhotoId");
 
                     b.ToTable("DanceCourseTypes");
+                });
+
+            modelBuilder.Entity("JusDanceProjects.API.Models.Lesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DanceCourseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DanceCourseId");
+
+                    b.ToTable("Lessons");
                 });
 
             modelBuilder.Entity("JusDanceProjects.API.Models.Photo", b =>
@@ -324,7 +359,9 @@ namespace JusDanceProjects.API.Migrations
 
                     b.HasOne("JusDanceProjects.API.Models.User", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("JusDanceProjects.API.Models.DanceCourseType", b =>
@@ -332,6 +369,15 @@ namespace JusDanceProjects.API.Migrations
                     b.HasOne("JusDanceProjects.API.Models.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
+                });
+
+            modelBuilder.Entity("JusDanceProjects.API.Models.Lesson", b =>
+                {
+                    b.HasOne("JusDanceProjects.API.Models.DanceCourse", "DanceCourse")
+                        .WithMany("Lessons")
+                        .HasForeignKey("DanceCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("JusDanceProjects.API.Models.User", b =>

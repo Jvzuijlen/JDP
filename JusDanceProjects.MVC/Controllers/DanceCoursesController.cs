@@ -32,25 +32,6 @@ namespace JusDanceProjects.MVC.Controllers
             return View(courses);
         }
 
-        // // GET: DanceCourses/Details/5
-        // public async Task<IActionResult> Details(int? id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var danceCourse = await _context.DanceCourses
-        //         .Include(d => d.DanceCourseType)
-        //         .FirstOrDefaultAsync(m => m.Id == id);
-        //     if (danceCourse == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(danceCourse);
-        // }
-
         // GET: DanceCourses/Create
         public async Task<IActionResult> Create()
         {
@@ -59,12 +40,32 @@ namespace JusDanceProjects.MVC.Controllers
             return View();
         }
 
+        // GET: DanceCourses/Lessons/id
+        public async Task<IActionResult> Lessons(int? id)
+        {
+            var course = await _danceRepository.GetDanceCourse((int)id);
+
+            return View(course);
+        }
+
+        // GET: DanceCourses/Lessons/CreateLesson/id
+        public async Task<IActionResult> CreateLesson(int? id)
+        {
+            var course = await _danceRepository.GetDanceCourse((int)id);
+            
+            Lesson lesson = new Lesson();
+            lesson.DanceCourse = course;
+            lesson.DanceCourseId = course.Id;
+
+            return View(lesson);
+        }
+
         // POST: DanceCourses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Location,DanceCourseTypeId,TeacherId")] DanceCourse danceCourse)
+        public async Task<IActionResult> Create(DanceCourse danceCourse)
         {
             if (ModelState.IsValid)
             {

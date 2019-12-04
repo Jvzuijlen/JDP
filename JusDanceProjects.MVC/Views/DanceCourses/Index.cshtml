@@ -20,13 +20,14 @@
           <h5 class="card-title">Course Style: @item.DanceCourseType.Title</h5>
           <p class="card-text">Location: @item.Location</p>
           <p class="card-text">Teacher: @item.Teacher.FirstName</p>
-          <p class="card-text">From dd/mm/yy till dd/mm/yy (TODO)</p>
-          <p class="card-text">Lessons: 4 (TODO)</p>
-          <p class="card-text">Attendance: 3/15 (TODO)</p>
+          <p class="card-text">From @item.StartDate.ToShortDateString() till @item.EndDate.ToShortDateString()</p>
+          <p class="card-text">Lessons: @item.Lessons.Count()</p>
+          <p class="card-text">Attendance: ?/@item.MaxAttendees (TODO)</p>
           </div>
           
           <div class="card-footer">
-          <a asp-controller="DanceCourses" asp-action="Details" asp-route-id="@item.Id" class="card-link">Details</a>
+          <a asp-controller="DanceCourses" asp-action="Lessons" asp-route-id="@item.Id" class="card-link">Lessons</a>
+          <a asp-controller="DanceCourses" asp-action="Edit" asp-route-id="@item.Id" class="card-link">Edit</a>
           <a asp-controller="DanceCourses" asp-action="Delete" asp-route-id="@item.Id" class="card-link">Delete</a>
           </div>
         </div>

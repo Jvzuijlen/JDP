@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace JusDanceProjects.API.Migrations
 {
-    public partial class IdentityInitial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -223,8 +223,12 @@ namespace JusDanceProjects.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Location = table.Column<string>(nullable: true),
-                    TeacherId = table.Column<int>(nullable: true),
+                    Visible = table.Column<bool>(nullable: false),
+                    MaxAttendees = table.Column<int>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Location = table.Column<string>(nullable: false),
+                    TeacherId = table.Column<int>(nullable: false),
                     DanceCourseTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -241,7 +245,28 @@ namespace JusDanceProjects.API.Migrations
                         column: x => x.TeacherId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lessons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    DanceCourseId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lessons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Lessons_DanceCourses_DanceCourseId",
+                        column: x => x.DanceCourseId,
+                        principalTable: "DanceCourses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -300,6 +325,11 @@ namespace JusDanceProjects.API.Migrations
                 name: "IX_DanceCourseTypes_PhotoId",
                 table: "DanceCourseTypes",
                 column: "PhotoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lessons_DanceCourseId",
+                table: "Lessons",
+                column: "DanceCourseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -320,13 +350,16 @@ namespace JusDanceProjects.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DanceCourses");
+                name: "Lessons");
 
             migrationBuilder.DropTable(
                 name: "Values");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "DanceCourses");
 
             migrationBuilder.DropTable(
                 name: "DanceCourseTypes");

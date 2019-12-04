@@ -1,0 +1,36 @@
+@model JusDanceProjects.API.Models.Lesson
+
+@{
+    ViewBag.Title = "Create a lesson";
+}
+
+<h1>Lesson:</h1>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="container">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="CreateLesson" class="btn btn-primary" />
+            </div>
+
+            <a asp-controller="DanceCourses" asp-action="Lessons" asp-route-id="@Model.DanceCourseId">Back to Course Lessons list</a>
+        </div>
+    </div>
+}
