@@ -1,10 +1,65 @@
 <div class="container">
-  <div class="row">
-    <div>
-      Acount: {{decodeToken.unique_name}}
+  <div class="row m-3">
+    <div class="col-sm-4">
+      <div *ngIf="user" class="card">
+        <img
+          class="card-img-top img-thumbnail"
+          src="{{
+            user.profilePicture?.url || '../../../../../assets/user.png'
+          }}"
+          alt="{{ user.firstName }}"
+        />
+        <div class="card-body">
+          <div>
+            <strong>Naam:</strong>
+            <p>{{ user.firstName }} {{ user.lastName }}</p>
+          </div>
+          <div>
+            <strong>Email:</strong>
+            <p>{{ user.email }}</p>
+          </div>
+          <div>
+            <strong>Geboortedatum:</strong>
+            <p>{{ user.dateOfBirth | date: "shortDate" }}</p>
+          </div>
+          <div>
+            <strong>Laats online:</strong>
+            <p>{{ user.lastActive | timeAgo }}</p>
+          </div>
+          <div>
+            <strong>Account gemaakt op:</strong>
+            <p>{{ user.created | date: "shortDate" }}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <button class="btn btn-primary w-100">Edit</button>
+            <!-- <button class="btn btn-success w-100" (click)="selectTab(3)">
+              Message
+            </button> -->
+          </div>
+        </div>
+      </div>
     </div>
-    <div *ngIf="user" class="col-lg-2 col-md-3 col-sm-6">
-        Email:{{user.email}}
+    <div class="col-sm-8">
+      <div class="card">
+        <ngb-tabset justify="fill">
+          <ngb-tab title="Abbonement:">
+            <ng-template ngbTabContent>
+              <div class="p-3">
+                  <h4>Abbonementen....</h4>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Betaal info:">
+            <ng-template ngbTabContent>
+                <div class="p-3">
+                    <h4>Betalingen...</h4>
+                </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
     </div>
   </div>
 </div>

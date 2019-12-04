@@ -10,7 +10,11 @@
         het rooster! Je hoeft geen ervaring te hebben om in te stromen in één
         van deze lessen.
       </p>
-      <div *ngFor="let course of courseTypes">
+      <div class="mb-4">
+        <h5>Zoek:</h5>
+        <input type="text" [(ngModel)]="searchInput">
+      </div>
+      <div *ngFor="let course of courseTypes| filterCourseTypes: searchInput">
         <div *ngIf="course.visible">
           <h5>{{ course.title }}</h5>
           <mat-divider></mat-divider>

@@ -89,27 +89,25 @@ export class UserActions {
 
       this.authService.login(user).subscribe(
         (response: any) => {
-          // tslint:disable-next-line: no-shadowed-variable
-          const user = response;
 
-          if (user) {
+          if (response) {
             this.alertService.success('Login Succesfull!');
 
-            localStorage.setItem('token', user.token);
+            localStorage.setItem('token', response.token);
 
-            const decodedToken: DecodedToken = this.jwtHelper.decodeToken(user.token);
+            const decodedToken: DecodedToken = this.jwtHelper.decodeToken(response.token);
+            const user: User = response.user as User;
 
             this.ngRedux.dispatch({
               type: UserActionsTypes.LOGIN_USER_SUCCES,
               payload: {
                 loggedIn: true,
-                decodeToken: decodedToken
+                decodeToken: decodedToken,
+                loggedInUser: user
               }
             });
 
             this.router.navigate(['/home']);
-
-            this.getUser(decodedToken.nameid);
 
           } else {
             console.log('user != null');
@@ -134,7 +132,8 @@ export class UserActions {
         type: UserActionsTypes.LOGIN_USER_SUCCES,
         payload: {
           loggedIn: true,
-          decodeToken: decodedToken
+          decodeToken: decodedToken,
+          loggedInUser: null
         }
       });
 
@@ -165,9 +164,12 @@ export class UserActions {
     this.userService.getUser(id).subscribe(
       (response: User) => {
         if (response != null) {
+
+          const user: User = response as User;
+
           this.ngRedux.dispatch({
             type: UserActionsTypes.GET_USER_SUCCES,
-            payload: response
+            payload: user
           });
 
         } else {

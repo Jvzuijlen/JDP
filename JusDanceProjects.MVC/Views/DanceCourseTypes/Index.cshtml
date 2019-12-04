@@ -14,14 +14,20 @@
     <div class="row">
     @foreach(var item in Model)
     {
-      <div class="card mb-3 mr-3 col-sm-12 .col-md-8 col-lg-6 col-xl-4">
-        <img src="@item.PhotoUrl ?? string.empty" class="card-img-top img-fluid" alt="No Photo">
-        <div class="card-body">
+      <div class="mb-4 col-sm-12 col-md-8 col-lg-6 col-xl-4 d-flex align-items-stretch">
+        <div class="card">
+          @*<img src="@item.PhotoUrl ?? string.empty" class="card-img-top img-fluid" alt="No Photo">*@
+          <div class="card-body">
             <h5 class="card-title">@item.Title</h5>
             <p class="card-text">@item.Description</p>
+          </div>
+
+          <div class="card-footer text-center">
             <a asp-controller="DanceCourseTypes" asp-action="Delete" asp-route-id="@item.Id" class="card-link">Delete</a>
+            <a asp-controller="DanceCourseTypes" asp-action="Edit" asp-route-id="@item.Id" class="card-link">Edit</a>
           </div>
         </div>
+      </div>
     }
     </div>
 </div>

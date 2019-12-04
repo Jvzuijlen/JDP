@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DanceActions } from '@redux/actions/dance.action';
-import { IDanceState, IAppState } from '@redux/store';
+import { IAppState } from '@redux/store';
 import { NgRedux } from '@angular-redux/store';
 import { DanceCourseType } from '@models/dance-course-type';
 import { Loadable } from '@redux/helper/loadable';
@@ -11,6 +11,7 @@ import { Loadable } from '@redux/helper/loadable';
   styleUrls: ['./dance-offers.component.css']
 })
 export class DanceOffersComponent implements OnInit {
+  searchInput: string;
   courseTypes: DanceCourseType[];
   loadable: Loadable;
 

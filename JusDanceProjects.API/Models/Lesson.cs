@@ -7,19 +7,24 @@ namespace JusDanceProjects.API.Models
 {
     public class Lesson
     {
-        public Lesson()
-        {
-            this.AttendedUsers = new HashSet<User>();
-            this.AttendingUsers = new HashSet<User>();
-        }
-
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Lesson Start Time")]
         public DateTime StartTime {get; set;}
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Lesson End Time")]
         public DateTime EndTime { get; set; }
+
+        [Required]
         public int DanceCourseId { get; set; }
         [ForeignKey("DanceCourseId")]
         public virtual DanceCourse DanceCourse { get; set; }
+        
         public virtual ICollection<User> AttendingUsers { get; set; }
         public virtual ICollection<User> AttendedUsers { get; set; }
     }

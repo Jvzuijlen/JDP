@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JusDanceProjects.API.Data;
+using JusDanceProjects.API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +30,7 @@ namespace JusDanceProjects.MVC
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IMiscRepository, MiscRepository>();
             services.AddTransient<IDanceRepository, DanceRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddControllersWithViews();
         }
 
@@ -46,7 +49,8 @@ namespace JusDanceProjects.MVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
+            
             app.UseRouting();
 
             app.UseAuthorization();
@@ -56,6 +60,7 @@ namespace JusDanceProjects.MVC
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

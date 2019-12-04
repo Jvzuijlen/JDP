@@ -1,11 +1,13 @@
 using System.Threading.Tasks;
 using JusDanceProjects.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JusDanceProjects.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class DanceController : ControllerBase
     {
         private readonly IDanceRepository _repo;
@@ -16,11 +18,9 @@ namespace JusDanceProjects.API.Controllers
         }
 
         [HttpGet("coursetypes")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetDanceCourseTypes()
         {
             var dancetypes = await _repo.GetDanceCourseTypes();
-
-            // var usersToReturn = _mapper.Map<IEnumerable<UserForListDTO>>(users);
 
             return Ok(dancetypes);
         }

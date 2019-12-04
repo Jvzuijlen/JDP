@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JusDanceProjects.API.Data;
 using JusDanceProjects.API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JusDanceProjects.MVC.Controllers
 {
+    [Authorize]
     public class PhotosController : Controller
     {
         private readonly IMiscRepository _repo;

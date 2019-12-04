@@ -5,4 +5,5 @@ export interface DanceCourseType {
     title: string;
     description: string;
     photo: Photo;
+    visible: boolean;
 }

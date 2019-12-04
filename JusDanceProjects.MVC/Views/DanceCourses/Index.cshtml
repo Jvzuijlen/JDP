@@ -1,0 +1,36 @@
+@model IEnumerable<JusDanceProjects.API.Models.DanceCourse>
+
+@{
+}
+
+<div class="container">
+    <div class="row mb-3">
+        <form asp-controller="DanceCourses" asp-action="Index">
+            <h1>DanceCourses:</h1>
+            <a asp-controller="DanceCourses" asp-action="Create" class="btn btn-primary">Create new</a>
+        </form>
+    </div>
+
+    <div class="row">
+    @foreach(var item in Model)
+    {
+      <div class="mb-4 col-sm-12 col-md-8 col-lg-6 col-xl-4 d-flex align-items-stretch">
+        <div class="card">
+          <div class="card-body">
+          <h5 class="card-title">Course Style: @item.DanceCourseType.Title</h5>
+          <p class="card-text">Location: @item.Location</p>
+          <p class="card-text">Teacher: @item.Teacher.FirstName</p>
+          <p class="card-text">From dd/mm/yy till dd/mm/yy (TODO)</p>
+          <p class="card-text">Lessons: 4 (TODO)</p>
+          <p class="card-text">Attendance: 3/15 (TODO)</p>
+          </div>
+          
+          <div class="card-footer">
+          <a asp-controller="DanceCourses" asp-action="Details" asp-route-id="@item.Id" class="card-link">Details</a>
+          <a asp-controller="DanceCourses" asp-action="Delete" asp-route-id="@item.Id" class="card-link">Delete</a>
+          </div>
+        </div>
+      </div>
+    }
+    </div>
+</div>
