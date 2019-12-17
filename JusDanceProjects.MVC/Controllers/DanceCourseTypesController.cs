@@ -23,9 +23,9 @@ namespace JusDanceProjects.MVC.Controllers
         }
 
         // GET: DanceCourseTypes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            var courses = await _repo.GetDanceCourseTypes();
+            var courses = await _repo.FindDanceCourseType(search);
             List<DanceCourseTypeVM> courseList = new List<DanceCourseTypeVM>();
             foreach(DanceCourseType course in courses)
             {

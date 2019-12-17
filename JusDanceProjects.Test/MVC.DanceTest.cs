@@ -19,13 +19,13 @@ namespace JusDanceProjects.Test
             // Arrange
             var mockDanceRepo = new Mock<IDanceRepository>();
 
-            mockDanceRepo.Setup(repo => repo.GetDanceCourseTypes())
-                .Returns(Task.FromResult(DataTestService.GetTestCoursesList()));
+            mockDanceRepo.Setup(repo => repo.FindDanceCourseType(""))
+                .Returns(Task.FromResult(DataTestService.FindTestCoursesList()));
 
             var controller = new DanceCourseTypesController(mockDanceRepo.Object);
 
             // Act
-            var result = await controller.Index();
+            var result = await controller.Index("");
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);

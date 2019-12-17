@@ -25,6 +25,26 @@ namespace JusDanceProjects.Test
             return sessions;
         }
 
+        public static List<DanceCourseType> FindTestCoursesList()
+        {
+            var sessions = new List<DanceCourseType>();
+            sessions.Add(new DanceCourseType()
+            {
+                Id = 1,
+                Title = "HipHop",
+                Visible = true,
+                Description = "HipHop for beginners"
+            });
+            sessions.Add(new DanceCourseType()
+            {
+                Id = 2,
+                Title = "R&B",
+                Visible = true,
+                Description = "R&B for beginners"
+            });
+            return sessions;
+        }
+
         public DataTestService()
         {
         }
