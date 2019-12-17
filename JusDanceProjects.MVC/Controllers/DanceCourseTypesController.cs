@@ -35,22 +35,22 @@ namespace JusDanceProjects.MVC.Controllers
             return View(courseList);
         }
 
-        // GET: DanceCourseTypes/Details/5
-        public IActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        // // GET: DanceCourseTypes/Details/5
+        // public IActionResult Details(int? id)
+        // {
+        //     if (id == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            var danceCourseType = _repo.GetDanceCourseType((int)id);
-            if (danceCourseType == null)
-            {
-                return NotFound();
-            }
+        //     var danceCourseType = _repo.GetDanceCourseType((int)id);
+        //     if (danceCourseType == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return View(danceCourseType);
-        }
+        //     return View(danceCourseType);
+        // }
 
         // GET: DanceCourseTypes/Create
         public IActionResult Create()

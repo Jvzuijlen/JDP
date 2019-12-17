@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JusDanceProjects.API\JusDanceProjects.API.csproj" />
+    <ProjectReference Include="..\JusDanceProjects.MVC\JusDanceProjects.MVC.csproj" />
   </ItemGroup>
 
 </Project>

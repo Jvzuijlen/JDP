@@ -12,7 +12,7 @@ using Xunit;
 
 namespace JusDanceProjects.Test
 {
-    public class DanceTest
+    public class APIDanceTest
     {
         [Fact]
         public async void TestGetDanceCourseTypesMethodReturnObjects()
