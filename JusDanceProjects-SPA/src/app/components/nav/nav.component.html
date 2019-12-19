@@ -9,7 +9,7 @@
     <div *ngIf="authService.loggedIn()">
       <button
         mat-button
-        matTooltip="Mijn lessen"
+        matTooltip="Mijn Lessen"
         id="nav-myclasses-menu-button"
         [routerLink]="'/myclasses'"
       >
@@ -37,7 +37,7 @@
         {{ decodeToken.unique_name }}
       </button>
       <mat-menu #accountMenu [overlapTrigger]="false" yPosition="below">
-        <button id="nav-account-button" mat-menu-item [routerLink]="'/account'">
+        <button id="nav-account-button" mat-menu-item [routerLink]="'user/account'">
           <mat-icon>person</mat-icon><span>Mijn Account</span>
         </button>
         <!-- <button mat-menu-item [routerLink]="'/home'">

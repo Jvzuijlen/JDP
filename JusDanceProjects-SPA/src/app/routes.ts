@@ -12,7 +12,7 @@ export const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent},
     { path: 'aanbod', component: DanceOffersComponent},
     {
-        path: '',
+        path: 'user',
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [

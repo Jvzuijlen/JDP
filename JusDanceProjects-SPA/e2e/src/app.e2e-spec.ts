@@ -4,7 +4,7 @@ import { browser, logging } from 'protractor';
 describe('workspace-project App', () => {
   let page: AppPage;
   const testEmail = 'test@test.com';
-  const testPassword = 'Test123!';
+  const testPassword = 'password';
 
   beforeEach(() => {
     page = new AppPage();
@@ -40,7 +40,7 @@ describe('workspace-project App', () => {
     expect(browser.getCurrentUrl()).toContain('/home');
 
     // Assert: If my classes button appeared
-    expect(page.getText('nav-myclasses-menu-button')).toContain('Mijn Lessen');
+    expect(page.getText('nav-myclasses-menu-button')).toContain('Mijn lessen');
 
     // Act: Log out user
     page.clickButton('nav-account-menu-button');
