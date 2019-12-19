@@ -45,6 +45,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { getToken } from 'app/app.module';
 import { environment } from 'environments/environment';
 import { AuthGuard } from 'app/guards/auth.guard';
+import { LessonsComponent } from '@components/lessons/lessons.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -63,7 +64,8 @@ describe('LoginComponent', () => {
         AccountComponent,
         DanceOffersComponent,
         TimeAgoPipe,
-        FilterCourseTypesPipe
+        FilterCourseTypesPipe,
+        LessonsComponent
       ],
       imports: [
         BrowserModule,

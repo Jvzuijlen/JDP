@@ -59,17 +59,6 @@ export class RegisterComponent implements OnInit {
 
     console.log('onRegisterSubmit()');
     if (this.registerForm.valid) {
-      // const user = this.registerForm.value as User;
-
-      // console.log(this.registerForm.value);
-
-      // user.dateofbirth = new Date(
-      //   this.registerForm.controls.dateofbirth.value.year,
-      //   this.registerForm.controls.dateofbirth.value.month - 1,
-      //   this.registerForm.controls.dateofbirth.value.day
-      // );
-
-      // console.log(user);
 
       this.userActions.register(this.registerForm.value);
     }

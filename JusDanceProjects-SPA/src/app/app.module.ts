@@ -44,6 +44,7 @@ import { environment } from 'environments/environment';
 import { AuthGuard } from './guards/auth.guard';
 import { TimeAgoPipe } from './shared/time-ago.pipe';
 import { FilterCourseTypesPipe } from './shared/filter-course-types.pipe';
+import { LessonsComponent } from '@components/lessons/lessons.component';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -61,7 +62,8 @@ export function getToken() {
     AccountComponent,
     DanceOffersComponent,
     TimeAgoPipe,
-    FilterCourseTypesPipe
+    FilterCourseTypesPipe,
+    LessonsComponent
   ],
   imports: [
     BrowserModule,

@@ -96,6 +96,7 @@ export class UserActions {
             localStorage.setItem('token', response.token);
 
             const decodedToken: DecodedToken = this.jwtHelper.decodeToken(response.token);
+            // tslint:disable-next-line: no-shadowed-variable
             const user: User = response.user as User;
 
             this.ngRedux.dispatch({

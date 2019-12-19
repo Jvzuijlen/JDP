@@ -5,6 +5,7 @@ import { LoginComponent } from '@components/login/login.component';
 import { AccountComponent } from '@components/account/account.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DanceOffersComponent } from '@components/dance-offers/dance-offers.component';
+import { LessonsComponent } from '@components/lessons/lessons.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent},
@@ -17,6 +18,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'account', component: AccountComponent},
+            { path: 'lessons', component: LessonsComponent},
         ]
     },
     { path: '**', redirectTo: 'home', pathMatch: 'full'},
